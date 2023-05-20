@@ -21,6 +21,7 @@ public class A_HomePage implements ActionListener
     JButton seeInboxButton;
     JButton loginButton;
     JButton editProgramButton;
+    JButton editArticleButton;
     JButton homeButton;
     JButton notifyButton;
     JButton settingButton;
@@ -57,7 +58,7 @@ public class A_HomePage implements ActionListener
         seeInboxButton.addActionListener(this);
 
 
-        // Return to login pagw
+        // Return to login page
         loginButton = new JButton("Login Page");
         loginButton.setBounds(300, 100, 200, 200);
         loginButton.setFont(new Font("Canva Sans",Font.BOLD,35));
@@ -76,15 +77,25 @@ public class A_HomePage implements ActionListener
         editProgramButton.setForeground(Color.WHITE);
         editProgramButton.addActionListener(this);
 
+        // Edit Article Button
+        editArticleButton = new JButton("Edit Article");
+        editArticleButton.setBounds(300, 500, 200, 200);
+        editArticleButton.setFont(new Font("Canva Sans",Font.BOLD,35));
+        editArticleButton.setFocusable(false);
+        editArticleButton.setForeground(Color.WHITE);
+        editArticleButton.setBackground(new Color(67,125,178));
+        editArticleButton.addActionListener(this);
+
         // Panel to hold all buttons
         panel = new JPanel();
         panel.setBounds(70, 280, 450, 300);
         panel.setBackground(new Color(255,251,230));
         panel.setOpaque(true);
-        panel.setLayout(new GridLayout(3,1,10,40));
+        panel.setLayout(new GridLayout(4,1,10,40));
         panel.add(loginButton);
         panel.add(seeInboxButton);
         panel.add(editProgramButton);
+        panel.add(editArticleButton);
 
         // Buttons on bottom panel
         homeButton = new JButton();
@@ -171,6 +182,12 @@ public class A_HomePage implements ActionListener
         if(e.getSource() == editProgramButton)
         {
             new EditProgramDesc();
+            frame.dispose();
+        }
+
+        if(e.getSource() == editArticleButton);
+        {
+            new EditArticle();
             frame.dispose();
         }
     }

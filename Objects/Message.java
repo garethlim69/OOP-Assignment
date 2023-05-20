@@ -1,6 +1,8 @@
 package Objects;
 
-public class Message {
+import java.io.Serializable;
+
+public class Message implements Serializable{
     String username;
     String message;
 

@@ -1,6 +1,8 @@
 package Objects;
 
-public class Quiz {
+import java.io.Serializable;
+
+public class Quiz implements Serializable{
     String question;
     String answer1;
     String answer2;

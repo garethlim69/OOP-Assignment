@@ -2,11 +2,11 @@ package Objects;
 
 import java.io.Serializable;
 
-public class Article implements Serializable{
-    public String title;
+public class Video implements Serializable{
+    String title;
     String url;
 
-    public Article(String title, String url) {
+    public Video(String title, String url) {
         this.title = title;
         this.url = url;
     }
@@ -26,5 +26,5 @@ public class Article implements Serializable{
     public void setUrl(String url) {
         this.url = url;
     }
-
+    
 }

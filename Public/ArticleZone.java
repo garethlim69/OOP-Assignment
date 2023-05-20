@@ -2,11 +2,18 @@ package Public;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 import javax.swing.*;
+
+import Objects.Article;
+import Objects.User;
 
 public class ArticleZone implements ActionListener
 {
@@ -34,6 +41,7 @@ public class ArticleZone implements ActionListener
 
     String thisUser = "";
     int search;
+    String fileName = "Text Files/article.txt";
 
     // Constructor 
     // The username of current user is passed into this constructor
@@ -232,6 +240,28 @@ public class ArticleZone implements ActionListener
         }
 
 
+
+        // ObjectInputStream is;
+        // try {
+        //     is = new ObjectInputStream(new FileInputStream(fileName));
+        //     ArrayList<Article> articleList;
+        //     try {
+        //         articleList = (ArrayList<Article>)is.readObject();
+        //         System.out.println(articleList);
+        //         System.out.println(articleList.get(1).getTitle());
+        //     } catch (ClassNotFoundException e1) {
+        //         System.out.println("Class Not Found");
+        //         e1.printStackTrace();
+        //     }
+        //     is.close();
+        // } catch (FileNotFoundException e1) {
+        //     System.out.println("File Not Found");
+        //     e1.printStackTrace();
+        // } catch (IOException e1) {
+        //     System.out.println("IO Exception");
+        //     e1.printStackTrace();
+        // }
+        
         // Direct to respective article webpage 
         for(int i=1 ; i<=4 ; i++)
         {
