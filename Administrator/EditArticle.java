@@ -38,6 +38,7 @@ public class EditArticle implements ActionListener{
     JTextField searchBar;
 
     ArrayList<Article> articleList = new ArrayList<Article>();
+    String fileName = "Text Files/article.txt";
 
     //Constructor
     public EditArticle(){
@@ -53,23 +54,26 @@ public class EditArticle implements ActionListener{
         title.setFont(new Font("Canva Sans",Font.BOLD,40));
         title.setForeground(Color.BLACK);
 
-
-        String fileName = "Text Files/article.txt";
-        
-
-
-//ADD SERIALIZED INFO TO TEXT (TO REMOVE)
-        // String article1Title = "rickroll";
-        // String article1URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-        // String article2Title = "soviet";
-        // String article2URL = "https://www.youtube.com/watch?v=AOAtz8xWM0w";
+// ADD SERIALIZED INFO TO TEXT (TO REMOVE)
+        // String article1Title = "Article 1";
+        // String article1URL = "https://www.globalgoals.org/goals/13-climate-action/";
+        // String article2Title = "Article 2";
+        // String article2URL = "https://www.nytimes.com/article/climate-change-global-warming-faq.html";
+        // String article3Title = "Article 3";
+        // String article3URL = "https://news.un.org/en/story/2022/01/1110722?gclid=Cj0KCQjwsIejBhDOARIsANYqkD3dKeygHF3fpMChsmkwcvP1Xz1EVXCe33y9iTJsaIGWhIJBi2FXaIsaAscvEALw_wcB";
+        // String article4Title = "Article 4";
+        // String article4URL = "https://seagrant.psu.edu/node/1081";
 
         // Article article1 = new Article(article1Title, article1URL);
         // Article article2 = new Article(article2Title, article2URL);
+        // Article article3 = new Article(article3Title, article3URL);
+        // Article article4 = new Article(article4Title, article4URL);
 
         // ArrayList<Article> articleListRead = new ArrayList<Article>();
         // articleListRead.add(article1);
         // articleListRead.add(article2);
+        // articleListRead.add(article3);
+        // articleListRead.add(article4);
         // System.out.println("article list before printing: " + articleListRead);
 
         // try {
@@ -81,10 +85,7 @@ public class EditArticle implements ActionListener{
         //     System.out.println("IOException");
         // }
         
-
-
-
-//END TO REMOVE
+// END TO REMOVE
 
 
         //Deserializing component
@@ -95,11 +96,11 @@ public class EditArticle implements ActionListener{
             
             try {
                 articleList = (ArrayList)is.readObject();
-                System.out.println(articleList);
-                System.out.println(articleList.get(1).getTitle());
-                System.out.println(articleList.get(1).getUrl());
-                System.out.println(articleList.get(0).getTitle());
-                System.out.println(articleList.get(0).getUrl());
+                // System.out.println(articleList);
+                // System.out.println(articleList.get(1).getTitle());
+                // System.out.println(articleList.get(1).getUrl());
+                // System.out.println(articleList.get(0).getTitle());
+                // System.out.println(articleList.get(0).getUrl());
             } catch (ClassNotFoundException e1) {
                 System.out.println("Class Not Found");
                 e1.printStackTrace();
@@ -205,18 +206,29 @@ public class EditArticle implements ActionListener{
             frame.dispose();
         }
 
-        for(int i =1 ; i<= 4 ; i++)
+        for(int i = 0 ; i <= 4 ; i++)
         {   
             if(e.getSource()==programButton[i])
             {
-                System.out.println(articleList);
-                System.out.println("button " + i + " pressed");
+                //System.out.println(articleList);
+                //System.out.println("button " + i + " pressed");
                 String title = JOptionPane.showInputDialog("Edit the video title", articleList.get(i).getTitle());
                 String url = JOptionPane.showInputDialog("Edit the video URL", articleList.get(i).getUrl());
                 articleList.get(i).setTitle(title);
                 articleList.get(i).setUrl(url);
-                System.out.println(articleList.get(i).getTitle());
-                System.out.println(articleList.get(i).getUrl());
+                // System.out.println(articleList.get(i).getTitle());
+                // System.out.println(articleList.get(i).getUrl());
+
+                try {
+                    ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
+                    os.writeObject(articleList);
+                    os.close();
+                    System.out.println("done writing");
+                    new EditArticle();
+                    frame.dispose();
+                } catch (IOException e1){
+                    System.out.println("IOException");
+                }
             }
         }
     }

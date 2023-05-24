@@ -3,7 +3,12 @@ package Administrator;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
+
+import Objects.Message;
 
 
 public class InboxPage implements ActionListener
@@ -11,6 +16,7 @@ public class InboxPage implements ActionListener
     // Declare of all components needed to design the frame
     JFrame frame = new JFrame();
     JTextArea displayedMessage;
+    JScrollPane scroll = new JScrollPane (displayedMessage, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     ImageIcon bgImage;
     JLabel bgLabel = new JLabel();
     JLabel title;
@@ -24,6 +30,8 @@ public class InboxPage implements ActionListener
     ImageIcon notifyIcon;
     ImageIcon settingIcon;
     JPanel bottomRibbon;
+
+    ArrayList<Message> messageList = new ArrayList<Message>();
     
 
     // Constructor
@@ -59,10 +67,68 @@ public class InboxPage implements ActionListener
         displayedMessage = new JTextArea();
         displayedMessage.setLineWrap(true);
         displayedMessage.setWrapStyleWord(true);   
-        displayedMessage.setFont(new Font("Arial",Font.PLAIN,30)); 
+        displayedMessage.setFont(new Font("Arial",Font.PLAIN,30));
+        displayedMessage.setDisabledTextColor(Color.black);
+        displayedMessage.add(scroll);
         displayedMessage.setBounds(50,230,480,450);
         displayedMessage.setEditable(false);
+        displayedMessage.setEnabled(false);
 
+        String fileName = "Text Files/messages.txt";
+// ADD SERIALIZED INFO TO TEXT (TO REMOVE)
+        // String message1Username = "user 1";
+        // String message1Message = "hello";
+        // String message2Username = "user 2";
+        // String message2Message = "hi";
+
+        // Message message1 = new Message(message1Username, message1Message);
+        // Message message2 = new Message(message2Username, message2Message);
+
+        // ArrayList<Message> articleListRead = new ArrayList<Message>();
+        // articleListRead.add(message1);
+        // articleListRead.add(message2);
+        // System.out.println("article list before printing: " + articleListRead);
+
+        // try {
+        //     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
+        //     os.writeObject(articleListRead);
+        //     os.close();
+        //     System.out.println("done writing");
+        // } catch (IOException e1){
+        //     System.out.println("IOException");
+        // }
+        
+
+
+
+// END TO REMOVE
+
+
+        //Deserializing component
+        
+        ObjectInputStream is;
+        try {
+            is = new ObjectInputStream(new FileInputStream(fileName));
+            
+            try {
+                messageList = (ArrayList)is.readObject();
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < messageList.size(); i ++){
+                    sb.append("Message: " + messageList.get(i).getMessage() + "\nUser: " + messageList.get(i).getUsername() + "\n\n");
+                }
+                displayedMessage.setText(sb.toString());
+            } catch (ClassNotFoundException e1) {
+                System.out.println("Class Not Found");
+                e1.printStackTrace();
+            }
+            is.close();
+        } catch (FileNotFoundException e1) {
+            System.out.println("File Not Found");
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            System.out.println("IO Exception");
+            e1.printStackTrace();
+        }
 
         /*
         When the admin wants to see the user message
@@ -70,22 +136,22 @@ public class InboxPage implements ActionListener
         b. The content is then copy and paste in the textArea of the Inbox Page
          */
         //////////////////////
-        try{
-            File fileSource = new File("Administrator/UserMessage.txt");
-            FileReader reader = new FileReader(fileSource);
-            char[] chars = new char[(int) fileSource.length()];
-            reader.read(chars);
-            reader.close();
-            String userMessage = new String(chars);
+        // try{
+        //     File fileSource = new File("Administrator/UserMessage.txt");
+        //     FileReader reader = new FileReader(fileSource);
+        //     char[] chars = new char[(int) fileSource.length()];
+        //     reader.read(chars);
+        //     reader.close();
+        //     String userMessage = new String(chars);
             
-            displayedMessage.setText(userMessage);
-        } 
-        catch(FileNotFoundException e1){
-            e1.printStackTrace();;
-        }
-        catch (IOException e1) {
-            e1.printStackTrace();
-        }
+        //     displayedMessage.setText(userMessage);
+        // } 
+        // catch(FileNotFoundException e1){
+        //     e1.printStackTrace();;
+        // }
+        // catch (IOException e1) {
+        //     e1.printStackTrace();
+        // }
         ////////////////////////
 
         
@@ -139,6 +205,7 @@ public class InboxPage implements ActionListener
         frame.add(title);
         frame.add(bgLabel);
         frame.add(displayedMessage);
+        frame.add(scroll);
         frame.add(fromUserPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setBackground(new Color(255,251,230));
