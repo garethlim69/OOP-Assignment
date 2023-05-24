@@ -2,9 +2,15 @@ package Public;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
-import Administrator.ProgramDesc;
+import Objects.Program;
 
 public class AwarenessProgram implements ActionListener
 {
@@ -15,10 +21,7 @@ public class AwarenessProgram implements ActionListener
     JButton profileButton;
     JButton notifyButton;
     JButton settingButton;
-    JButton transportButton;
-    JButton foodButton;
-    JButton treeButton;
-    JButton electricButton;
+    JButton[] programButton = new JButton[10];
     ImageIcon homeIcon;
     ImageIcon profileIcon;
     ImageIcon notifyIcon;
@@ -43,6 +46,8 @@ public class AwarenessProgram implements ActionListener
     // The only option of the JOptionPanel
     String[] options = {"Join"};
 
+    ArrayList<Program> programList = new ArrayList<Program>();
+    String fileName = "Text Files/programs.txt";
 
     // Constructor 
     // The username of current user is passed into this constructor
@@ -106,40 +111,36 @@ public class AwarenessProgram implements ActionListener
         panel.add(imageLabel3);
         panel.add(imageLabel4);
 
+        ObjectInputStream is;
+        try {
+            is = new ObjectInputStream(new FileInputStream(fileName));
+            try {
+                programList = (ArrayList)is.readObject();
+            } catch (ClassNotFoundException e1) {
+                System.out.println("Class Not Found");
+                e1.printStackTrace();
+            }
+            is.close();
+        } catch (FileNotFoundException e1) {
+            System.out.println("File Not Found");
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            System.out.println("IO Exception");
+            e1.printStackTrace();
+        }
 
-        // All 4 buttons of each program
-        transportButton = new JButton("Public Transport");
-		transportButton.setFocusable(false);
-        transportButton.setBounds(70, 390, 160, 40);
-        transportButton.setBackground(new Color(180,98,152));
-        transportButton.setForeground(Color.WHITE);
-        transportButton.setFont(new Font("Canva Sans",Font.BOLD,15));
-		transportButton.addActionListener(this);
-
-        foodButton = new JButton("Food Waste");
-		foodButton.setFocusable(false);
-        foodButton.setBounds(340, 390, 160, 40);
-        foodButton.setBackground(new Color(180,98,152));
-        foodButton.setForeground(Color.WHITE);
-        foodButton.setFont(new Font("Canva Sans",Font.BOLD,15));
-		foodButton.addActionListener(this);
-
-        electricButton = new JButton("Save Energy");
-		electricButton.setFocusable(false);
-        electricButton.setBounds(70, 610, 160, 40);
-        electricButton.setBackground(new Color(180,98,152));
-        electricButton.setForeground(Color.WHITE);
-        electricButton.setFont(new Font("Canva Sans",Font.BOLD,15));
-		electricButton.addActionListener(this);
-
-        treeButton = new JButton("Plant Trees");
-		treeButton.setFocusable(false);
-        treeButton.setBounds(340, 610, 160, 40);
-        treeButton.setBackground(new Color(180,98,152));
-        treeButton.setForeground(Color.WHITE);
-        treeButton.setFont(new Font("Canva Sans",Font.BOLD,15));
-		treeButton.addActionListener(this);
-        
+        for (int i = 0; i < programList.size(); i++)
+        {
+            programButton[i] = new JButton();
+            programButton[i].setText(programList.get(i).getTitle());
+            programButton[i].setFocusable(false);
+            programButton[i].setBounds(70, 390, 160, 40);
+            programButton[i].setBackground(new Color(180,98,152));
+            programButton[i].setForeground(Color.WHITE);
+            programButton[i].setFont(new Font("Canva Sans",Font.BOLD,15));
+            programButton[i].addActionListener(this);
+            frame.add(programButton[i]);
+        }
 
         // All buttons on bottom ribbon
         homeButton = new JButton();
@@ -203,10 +204,6 @@ public class AwarenessProgram implements ActionListener
         frame.add(desc);
         frame.add(bgLabel);
         frame.add(bottomRibbon);
-        frame.add(transportButton);
-        frame.add(foodButton);
-        frame.add(electricButton);
-        frame.add(treeButton);
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setBackground(new Color(255,251,230));
@@ -242,101 +239,34 @@ public class AwarenessProgram implements ActionListener
         --- A JOptionPane which contains the program images and details will appear
         --- If the user clicks on the "Join" button, they can get award
          */
-        if(e.getSource() == transportButton)
-        {
-            ProgramDesc program1 = new ProgramDesc();
-            programDetail = program1.getPublicTransportDesc();
+        for(int i = 0; i < programList.size(); i++)
+        {   
+            if(e.getSource()==programButton[i])
+            {
+                String title = JOptionPane.showInputDialog("Edit the program's title", programList.get(i).getTitle());
+                String description = JOptionPane.showInputDialog("Edit the program's description", programList.get(i).getDescription());
+                programList.get(i).setTitle(title);
+                programList.get(i).setDescription(description);
 
-            ImageIcon icon = new ImageIcon("Image/transport.png");
-            Image img = icon.getImage();
-            Image image = img.getScaledInstance(400, 300, Image.SCALE_SMOOTH);
-            ImageIcon newIcon = new ImageIcon(image);
 
-            int answer = JOptionPane.showOptionDialog(null,
-                                        programDetail,
-                                        "Use Public Transport",
-                                        JOptionPane.DEFAULT_OPTION,
-                                        0,
-                                        newIcon,
-                                        options,
-                                        options[0]);
-            
-            if(answer == 0){
-                JOptionPane.showMessageDialog(null, "Thank you for joining the program! You can redeem a prize in this app.", "Thank you for your support", JOptionPane.INFORMATION_MESSAGE);
+                ImageIcon icon = new ImageIcon("Image/transport.png");
+                Image img = icon.getImage();
+                Image image = img.getScaledInstance(400, 300, Image.SCALE_SMOOTH);
+                ImageIcon newIcon = new ImageIcon(image);
+
+                int answer = JOptionPane.showOptionDialog(
+                    null,
+                    programList.get(i).getDescription(),
+                    programList.get(i).getTitle(),
+                    JOptionPane.DEFAULT_OPTION,
+                    0,
+                    newIcon,
+                    options,
+                    options[0]);
+                if(answer == 0){
+                    JOptionPane.showMessageDialog(null, "Thank you for joining the program! You can redeem a prize in this app.", "Thank you for your support", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         }
-
-        if(e.getSource() == foodButton)
-        {
-            ProgramDesc program2 = new ProgramDesc();
-            programDetail = program2.getFoodWasteDesc();
-
-            ImageIcon icon = new ImageIcon("Image/food.jpg");
-            Image img = icon.getImage();
-            Image image = img.getScaledInstance(400, 300, Image.SCALE_SMOOTH);
-            ImageIcon newIcon = new ImageIcon(image);
-
-            int answer = JOptionPane.showOptionDialog(null,
-                                        programDetail,
-                                        "Reduce food waste",
-                                        JOptionPane.DEFAULT_OPTION,
-                                        0,
-                                        newIcon,
-                                        options,
-                                        options[0]);
-            
-            if(answer == 0){
-                JOptionPane.showMessageDialog(null, "Thank you for joining the program! You can redeem a prize in this app.", "Thank you for your support", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-
-        if(e.getSource() == electricButton)
-        {
-            ProgramDesc program3 = new ProgramDesc();
-            programDetail = program3.getEnergyDesc();
-
-            ImageIcon icon = new ImageIcon("Image/energy.jpg");
-            Image img = icon.getImage();
-            Image image = img.getScaledInstance(400, 300, Image.SCALE_SMOOTH);
-            ImageIcon newIcon = new ImageIcon(image);
-
-            int answer = JOptionPane.showOptionDialog(null,
-                                        programDetail,
-                                        "Energy-Efficient Technology",
-                                        JOptionPane.DEFAULT_OPTION,
-                                        0,
-                                        newIcon,
-                                        options,
-                                        options[0]);
-            
-            if(answer == 0){
-                JOptionPane.showMessageDialog(null, "Thank you for joining the program! You can redeem a prize in this app.", "Thank you for your support", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-
-        if(e.getSource() == treeButton)
-        {
-            ProgramDesc program4 = new ProgramDesc();
-            programDetail = program4.getPlantTreeDesc();
-
-            ImageIcon icon = new ImageIcon("Image/plantTree.jpg");
-            Image img = icon.getImage();
-            Image image = img.getScaledInstance(400, 300, Image.SCALE_SMOOTH);
-            ImageIcon newIcon = new ImageIcon(image);
-
-            int answer = JOptionPane.showOptionDialog(null,
-                                        programDetail,
-                                        "Plant Trees and Reforestation",
-                                        JOptionPane.DEFAULT_OPTION,
-                                        0,
-                                        newIcon,
-                                        options,
-                                        options[0]);
-            
-            if(answer == 0){
-                JOptionPane.showMessageDialog(null, "Thank you for joining the program! You can redeem a prize in this app.", "Thank you for your support", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-        
     }
 }

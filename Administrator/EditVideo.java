@@ -1,7 +1,8 @@
 package Administrator;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -10,11 +11,17 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import javax.swing.*;
-import Objects.Program;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-public class EditProgramDesc implements ActionListener
-{
+import Objects.Video;
+
+public class EditVideo implements ActionListener{
     // Declare all components needed to design frame
     JFrame frame = new JFrame();
     JLabel title;
@@ -30,53 +37,48 @@ public class EditProgramDesc implements ActionListener
     JButton[] programButton = new JButton[10];
     JTextField searchBar;
 
-    ArrayList<Program> programList = new ArrayList<Program>();
-    String fileName = "Text Files/programs.txt";
-  
+    ArrayList<Video> videoList = new ArrayList<Video>();
+    String fileName = "Text Files/videos.txt";
 
-    // Constructor 
-    public EditProgramDesc()
-    {
-
-        // Top ribbon
+    //Constructor
+    public EditVideo(){
+         // Top ribbon
         topRibbon = new JPanel();
         topRibbon.setBounds(0, 0, 600, 150);
         topRibbon.setBackground(new Color(248,207,137));
 
 
         // Title 
-        title = new JLabel("Edit Program Description");
+        title = new JLabel("Edit Video");
         title.setBounds(60, 20, 500, 100);
         title.setFont(new Font("Canva Sans",Font.BOLD,40));
         title.setForeground(Color.BLACK);
 
+// ADD SERIALIZED INFO TO TEXT (TO REMOVE)
+        // String video1Title = "Video 1";
+        // String video1URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        // String video2Title = "Video 2";
+        // String video2URL = "https://www.youtube.com/watch?v=Ct6BUPvE2sM";
+        // String video3Title = "Video 3";
+        // String video3URL = "https://www.youtube.com/watch?v=UnYMbP1vL8Y";
+        // String video4Title = "Video 4";
+        // String video4URL = "https://www.youtube.com/watch?v=Qc7_zRjH808";
 
-        // All programs button
+        // Video video1 = new Video(video1Title, video1URL);
+        // Video video2 = new Video(video2Title, video2URL);
+        // Video video3 = new Video(video3Title, video3URL);
+        // Video video4 = new Video(video4Title, video4URL);
 
-        // ADD SERIALIZED INFO TO TEXT (TO REMOVE)
-        // String program1Title = "Program 1: Use Public Transport";
-        // String program1Desc = "Use Public Transport More Often";
-        // String program2Title = "Program 2: Reduce Food Waste";
-        // String program2Desc = "Reduce Food Waste by Composting";
-        // String program3Title = "Program 3: Energy-Efficient Technology";
-        // String program3Desc = "Use Energy-Efficient Technology Such As Solar Panels";
-        // String program4Title = "Program 4: Plant Trees and Reforestation";
-        // String program4Desc = "Participate in Tree Planting Activities Nearby";
-
-        // Program program1 = new Program(program1Title, program1Desc);
-        // Program program2 = new Program(program2Title, program2Desc);
-        // Program program3 = new Program(program3Title, program3Desc);
-        // Program program4 = new Program(program4Title, program4Desc);
-
-        // ArrayList<Program> programListRead = new ArrayList<Program>();
-        // programListRead.add(program1);
-        // programListRead.add(program2);
-        // programListRead.add(program3);
-        // programListRead.add(program4);
+        // ArrayList<Video> videoListRead = new ArrayList<Video>();
+        // videoListRead.add(video1);
+        // videoListRead.add(video2);
+        // videoListRead.add(video3);
+        // videoListRead.add(video4);
+        // System.out.println("video list before printing: " + videoListRead);
 
         // try {
         //     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
-        //     os.writeObject(programListRead);
+        //     os.writeObject(videoListRead);
         //     os.close();
         //     System.out.println("done writing");
         // } catch (IOException e1){
@@ -85,32 +87,30 @@ public class EditProgramDesc implements ActionListener
         
 // END TO REMOVE
 
-            //Deserializing component
+
+        //Deserializing component
         
-            ObjectInputStream is;
+        ObjectInputStream is;
+        try {
+            is = new ObjectInputStream(new FileInputStream(fileName));
             try {
-                is = new ObjectInputStream(new FileInputStream(fileName));
-                try {
-                    programList = (ArrayList)is.readObject();
-                } catch (ClassNotFoundException e1) {
-                    System.out.println("Class Not Found");
-                    e1.printStackTrace();
-                }
-                is.close();
-            } catch (FileNotFoundException e1) {
-                System.out.println("File Not Found");
-                e1.printStackTrace();
-            } catch (IOException e1) {
-                System.out.println("IO Exception");
+                videoList = (ArrayList)is.readObject();
+            } catch (ClassNotFoundException e1) {
+                System.out.println("Class Not Found");
                 e1.printStackTrace();
             }
+            is.close();
+        } catch (FileNotFoundException e1) {
+            System.out.println("File Not Found");
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            System.out.println("IO Exception");
+            e1.printStackTrace();
+        }
 
-
-        // Set up all 4 program buttons using for loop
-        for (int i = 0; i < programList.size(); i++)
-        {
+        for (int i = 0; i < videoList.size(); i++){
             programButton[i] = new JButton();
-            programButton[i].setText(programList.get(i).getTitle());
+            programButton[i].setText(videoList.get(i).getTitle());
             programButton[i].setBounds(0, 0, 50, 50);
             programButton[i].setFont(new Font("Canva Sans", Font.BOLD,20));
             programButton[i].setBackground(new Color(241,171,80));
@@ -120,6 +120,7 @@ public class EditProgramDesc implements ActionListener
             programPanel.add(programButton[i]);
         }
 
+        
 
         // Panel to hold all program buttons
         programPanel.setLayout(null);
@@ -185,37 +186,39 @@ public class EditProgramDesc implements ActionListener
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
-}
 
-
-    // List of events activated when the button is clicked
+    }
+    
     @Override
-    public void actionPerformed(ActionEvent e) 
-    {
+    public void actionPerformed(ActionEvent e){
+        
         // Redirect to admin home page
         if(e.getSource() == homeButton)
         {
+            System.out.println(videoList);
             new A_HomePage();
             frame.dispose();
         }
 
-
-        // To edit program detail
-        for(int i = 0; i < programList.size(); i++)
+        for(int i = 0 ; i <= 4 ; i++)
         {   
             if(e.getSource()==programButton[i])
             {
-                String title = JOptionPane.showInputDialog("Edit the program's title", programList.get(i).getTitle());
-                String description = JOptionPane.showInputDialog("Edit the program's description", programList.get(i).getDescription());
-                programList.get(i).setTitle(title);
-                programList.get(i).setDescription(description);
+                //System.out.println(videoList);
+                //System.out.println("button " + i + " pressed");
+                String title = JOptionPane.showInputDialog("Edit the video title", videoList.get(i).getTitle());
+                String url = JOptionPane.showInputDialog("Edit the video URL", videoList.get(i).getUrl());
+                videoList.get(i).setTitle(title);
+                videoList.get(i).setUrl(url);
+                // System.out.println(videoList.get(i).getTitle());
+                // System.out.println(videoList.get(i).getUrl());
 
                 try {
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
-                    os.writeObject(programList);
+                    os.writeObject(videoList);
                     os.close();
                     System.out.println("done writing");
-                    new EditProgramDesc();
+                    new EditVideo();
                     frame.dispose();
                 } catch (IOException e1){
                     System.out.println("IOException");
@@ -224,4 +227,3 @@ public class EditProgramDesc implements ActionListener
         }
     }
 }
-

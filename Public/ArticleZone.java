@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import Objects.Article;
-import Objects.User;
 
 public class ArticleZone implements ActionListener
 {
@@ -41,7 +40,9 @@ public class ArticleZone implements ActionListener
 
     String thisUser = "";
     int search;
-    String fileName = "Text Files/article.txt";
+    
+    ArrayList<Article> articleList = new ArrayList<Article>();
+    String fileName = "Text Files/articles.txt";
 
     // Constructor 
     // The username of current user is passed into this constructor
@@ -74,28 +75,42 @@ public class ArticleZone implements ActionListener
         searchButton.setIcon(searchIcon);
         searchButton.addActionListener(this);
 
+        ObjectInputStream is;
+        try {
+            is = new ObjectInputStream(new FileInputStream(fileName));
+            
+            try {
+                articleList = (ArrayList)is.readObject();
+            } catch (ClassNotFoundException e1) {
+                System.out.println("Class Not Found");
+                e1.printStackTrace();
+            }
+            is.close();
+        } catch (FileNotFoundException e1) {
+            System.out.println("File Not Found");
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            System.out.println("IO Exception");
+            e1.printStackTrace();
+        }
 
         // Set up of Article Icon and Button (Only 4 articles available currently)
-        for (int i=1 ; i<=4 ; i++)
+        for (int i = 0; i < articleList.size(); i++)
         {
-            articleButton[i] = new JButton("  Topic " + i);
-
+            articleButton[i] = new JButton();
+            articleButton[i].setText(articleList.get(i).getTitle());
             articleButton[i].setBounds(0, 0, 50, 50);
             articleButton[i].setFont(new Font("Canva Sans", Font.BOLD,30));
             articleButton[i].setBackground(new Color(40,101,132));
             articleButton[i].setFocusable(false);
             articleButton[i].setForeground(Color.WHITE);
-
             articleIcon = new ImageIcon("Image/articleIcon.png");
             Image imageArticle = articleIcon.getImage().getScaledInstance(articleButton[i].getWidth(),articleButton[i].getHeight(), Image.SCALE_SMOOTH);
             articleIcon = new ImageIcon(imageArticle);
             articleButton[i].setIcon(articleIcon);
-
             articleButton[i].addActionListener(this);
-
             articlePanel.add(articleButton[i]);
         }
-
 
         // Panel to hold all article buttons
         articlePanel.setBounds(150, 280, 300, 450);
@@ -241,67 +256,60 @@ public class ArticleZone implements ActionListener
 
 
 
-        // ObjectInputStream is;
-        // try {
-        //     is = new ObjectInputStream(new FileInputStream(fileName));
-        //     ArrayList<Article> articleList;
-        //     try {
-        //         articleList = (ArrayList<Article>)is.readObject();
-        //         System.out.println(articleList);
-        //         System.out.println(articleList.get(1).getTitle());
-        //     } catch (ClassNotFoundException e1) {
-        //         System.out.println("Class Not Found");
-        //         e1.printStackTrace();
-        //     }
-        //     is.close();
-        // } catch (FileNotFoundException e1) {
-        //     System.out.println("File Not Found");
-        //     e1.printStackTrace();
-        // } catch (IOException e1) {
-        //     System.out.println("IO Exception");
-        //     e1.printStackTrace();
-        // }
+        
         
         // Direct to respective article webpage 
-        for(int i=1 ; i<=4 ; i++)
-        {
-            if(e.getSource() == articleButton[i])
-            {
-                switch(i)
-                {
-                    case 1 : 
-                        try {
-                            Desktop.getDesktop().browse(new URI("https://www.globalgoals.org/goals/13-climate-action/"));
-                        } catch (IOException | URISyntaxException e1) {
-                            e1.printStackTrace();
-                        }
-                        break;
+        // for(int i=1 ; i<=4 ; i++)
+        // {
+        //     if(e.getSource() == articleButton[i])
+        //     {
+        //         switch(i)
+        //         {
+        //             case 1 : 
+        //                 try {
+        //                     Desktop.getDesktop().browse(new URI("https://www.globalgoals.org/goals/13-climate-action/"));
+        //                 } catch (IOException | URISyntaxException e1) {
+        //                     e1.printStackTrace();
+        //                 }
+        //                 break;
 
-                    case 2 : 
-                        try {
-                            Desktop.getDesktop().browse(new URI("https://www.nytimes.com/article/climate-change-global-warming-faq.html"));
-                        } catch (IOException | URISyntaxException e1) {
-                            e1.printStackTrace();
-                        }
-                        break;
+        //             case 2 : 
+        //                 try {
+        //                     Desktop.getDesktop().browse(new URI("https://www.nytimes.com/article/climate-change-global-warming-faq.html"));
+        //                 } catch (IOException | URISyntaxException e1) {
+        //                     e1.printStackTrace();
+        //                 }
+        //                 break;
 
-                    case 3 : 
-                        try {
-                            Desktop.getDesktop().browse(new URI("https://news.un.org/en/story/2022/01/1110722?gclid=Cj0KCQjwsIejBhDOARIsANYqkD3dKeygHF3fpMChsmkwcvP1Xz1EVXCe33y9iTJsaIGWhIJBi2FXaIsaAscvEALw_wcB"));
-                        } catch (IOException | URISyntaxException e1) {
-                            e1.printStackTrace();
-                        }
-                        break;
+        //             case 3 : 
+        //                 try {
+        //                     Desktop.getDesktop().browse(new URI("https://news.un.org/en/story/2022/01/1110722?gclid=Cj0KCQjwsIejBhDOARIsANYqkD3dKeygHF3fpMChsmkwcvP1Xz1EVXCe33y9iTJsaIGWhIJBi2FXaIsaAscvEALw_wcB"));
+        //                 } catch (IOException | URISyntaxException e1) {
+        //                     e1.printStackTrace();
+        //                 }
+        //                 break;
 
-                    case 4 : 
-                        try {
-                            Desktop.getDesktop().browse(new URI("https://seagrant.psu.edu/node/1081"));
-                        } catch (IOException | URISyntaxException e1) {
-                            e1.printStackTrace();
-                        }
-                        break;
-                    }
+        //             case 4 : 
+        //                 try {
+        //                     Desktop.getDesktop().browse(new URI("https://seagrant.psu.edu/node/1081"));
+        //                 } catch (IOException | URISyntaxException e1) {
+        //                     e1.printStackTrace();
+        //                 }
+        //                 break;
+        //             }
+        //         }
+        //     }
+        for(int i = 0 ; i <= 4 ; i++)
+        {   
+            if(e.getSource()==articleButton[i])
+            {    
+                try {
+                    Desktop.getDesktop().browse(new URI(articleList.get(i).getUrl()));
+                } catch (IOException | URISyntaxException e1) {
+                    e1.printStackTrace();
                 }
+                break;
             }
+        }
     }
 }

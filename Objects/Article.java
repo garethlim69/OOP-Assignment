@@ -3,7 +3,7 @@ package Objects;
 import java.io.Serializable;
 
 public class Article implements Serializable{
-    public String title;
+    String title;
     String url;
 
     public Article(String title, String url) {

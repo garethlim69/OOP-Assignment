@@ -3,7 +3,11 @@ package Public;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
+
+import Objects.Message;
 
 
 public class SuggestionBox implements ActionListener
@@ -38,6 +42,8 @@ public class SuggestionBox implements ActionListener
     String message;
     String fileName;
     String filePath;
+
+    ArrayList<Message> messageList;
 
 
     // Constructor (to load the Suggestion Box Page)
@@ -205,26 +211,38 @@ public class SuggestionBox implements ActionListener
          */
         if(e.getSource() == sendButton)
         {
-            // Read the message written by the user in the JTextArea
-            message = inputArea.getText();
-
-            try{
-                // Create the txt file and store the file in Administrator package
-                fileName = "UserMessage.txt";
-                filePath = "C:\\Users\\Public\\Code\\Java\\Taylor Group Assignment\\Administrator\\" + fileName;
-                File file = new File(filePath);
-
-                // Copy and paste the message into the txt file created
-                FileWriter writer = new FileWriter(file);
-                writer.write(username + ":" + "\n" + message);
-                writer.close();
-            }
-            catch(IOException e1){
+            fileName = "Text Files/messages.txt";
+            ObjectInputStream is;
+            try {
+                is = new ObjectInputStream(new FileInputStream(fileName));
+                
+                try {
+                    messageList = (ArrayList)is.readObject();
+                    Message newMessage = new Message(this.username, inputArea.getText());
+                    messageList.add(newMessage);
+                } catch (ClassNotFoundException e1) {
+                    System.out.println("Class Not Found");
+                    e1.printStackTrace();
+                }
+                is.close();
+            } catch (FileNotFoundException e1) {
+                System.out.println("File Not Found");
+                e1.printStackTrace();
+            } catch (IOException e1) {
+                System.out.println("IO Exception");
                 e1.printStackTrace();
             }
-
-            new MessageSentPage(username);
-            frame.dispose();
+            
+            try {
+                ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
+                os.writeObject(messageList);
+                os.close();
+                new MessageSentPage(username);
+                frame.dispose();
+            } catch (IOException e1){
+                System.out.println("IOException");
+            }
+            
         }
 
 

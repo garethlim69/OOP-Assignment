@@ -22,6 +22,7 @@
      JButton loginButton;
      JButton editProgramButton;
      JButton editArticleButton;
+     JButton editVideoButton;
      JButton homeButton;
      JButton notifyButton;
      JButton settingButton;
@@ -85,6 +86,15 @@
          editArticleButton.setBackground(new Color(67,125,178));
          editArticleButton.setForeground(Color.WHITE);
          editArticleButton.addActionListener(this);
+
+         // Edit Video Button
+         editVideoButton = new JButton("Edit Video");
+         editVideoButton.setBounds(300, 500, 200, 200);
+         editVideoButton.setFont(new Font("Canva Sans",Font.BOLD,35));
+         editVideoButton.setFocusable(false);
+         editVideoButton.setBackground(new Color(67,125,178));
+         editVideoButton.setForeground(Color.WHITE);
+         editVideoButton.addActionListener(this);
  
          // Panel to hold all buttons
          panel = new JPanel();
@@ -187,6 +197,12 @@
          if(e.getSource() == editArticleButton)
          {
             new EditArticle();
+            frame.dispose();
+         }
+
+         if(e.getSource() == editVideoButton)
+         {
+            new EditVideo();
             frame.dispose();
          }
      }

@@ -2,9 +2,16 @@ package Public;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
+
+import Objects.Video;
 
 public class VideoZone implements ActionListener
 {
@@ -32,6 +39,9 @@ public class VideoZone implements ActionListener
 
     String thisUser = "";
     int search;
+
+    ArrayList<Video> videoList = new ArrayList<Video>();
+    String fileName = "Text Files/videos.txt";
 
     // Constructor 
     // The username of current user is passed into this constructor
@@ -65,28 +75,41 @@ public class VideoZone implements ActionListener
         searchButton.setIcon(searchIcon);
         searchButton.addActionListener(this);
 
+        ObjectInputStream is;
+        try {
+            is = new ObjectInputStream(new FileInputStream(fileName));
+            
+            try {
+                videoList = (ArrayList)is.readObject();
+            } catch (ClassNotFoundException e1) {
+                System.out.println("Class Not Found");
+                e1.printStackTrace();
+            }
+            is.close();
+        } catch (FileNotFoundException e1) {
+            System.out.println("File Not Found");
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            System.out.println("IO Exception");
+            e1.printStackTrace();
+        }
 
-        // Set up of Video Icon and Button (Only 4 videos available currently)
-        for (int i=1 ; i<=4 ; i++)
+        for (int i = 0; i < videoList.size(); i++)
         {
-            videoButton[i] = new JButton("  Video " + i);
-
+            videoButton[i] = new JButton();
+            videoButton[i].setText(videoList.get(i).getTitle());
             videoButton[i].setBounds(0, 0, 50, 50);
             videoButton[i].setFont(new Font("Canva Sans", Font.BOLD,30));
-            videoButton[i].setBackground(new Color(241,171,80));
+            videoButton[i].setBackground(new Color(40,101,132));
             videoButton[i].setFocusable(false);
             videoButton[i].setForeground(Color.WHITE);
-
             videoIcon = new ImageIcon("Image/videoIcon.png");
             Image imageVideo = videoIcon.getImage().getScaledInstance(videoButton[i].getWidth(),videoButton[i].getHeight(), Image.SCALE_SMOOTH);
             videoIcon = new ImageIcon(imageVideo);
             videoButton[i].setIcon(videoIcon);
-
             videoButton[i].addActionListener(this);
-
             videoPanel.add(videoButton[i]);
         }
-
 
         // Panel to hold all video buttons 
         videoPanel.setBounds(150, 280, 300, 450);
@@ -224,46 +247,58 @@ public class VideoZone implements ActionListener
 
 
         // User will be direct to the respective youtube video based on which button they click
-        for(int i=1 ; i<=4 ; i++)
-        {
-            if(e.getSource() == videoButton[i])
-            {
-                switch(i)
-                {
-                    case 1 : 
-                        try {
-                            Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=EuwMB1Dal-4&pp=ygUOY2xpbWF0ZSBjaGFuZ2U%3D"));
-                        } catch (IOException | URISyntaxException e1) {
-                            e1.printStackTrace();
-                        }
-                        break;
+        // for(int i=1 ; i<=4 ; i++)
+        // {
+        //     if(e.getSource() == videoButton[i])
+        //     {
+        //         switch(i)
+        //         {
+        //             case 1 : 
+        //                 try {
+        //                     Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=EuwMB1Dal-4&pp=ygUOY2xpbWF0ZSBjaGFuZ2U%3D"));
+        //                 } catch (IOException | URISyntaxException e1) {
+        //                     e1.printStackTrace();
+        //                 }
+        //                 break;
 
-                    case 2 : 
-                        try {
-                            Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=uynhvHZUOOo&pp=ygUOY2xpbWF0ZSBjaGFuZ2U%3D"));
-                        } catch (IOException | URISyntaxException e1) {
-                            e1.printStackTrace();
-                        }
-                        break;
+        //             case 2 : 
+        //                 try {
+        //                     Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=uynhvHZUOOo&pp=ygUOY2xpbWF0ZSBjaGFuZ2U%3D"));
+        //                 } catch (IOException | URISyntaxException e1) {
+        //                     e1.printStackTrace();
+        //                 }
+        //                 break;
 
-                    case 3 : 
-                        try {
-                            Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=tMwFNMfjFuU&pp=ygUOY2xpbWF0ZSBjaGFuZ2U%3D"));
-                        } catch (IOException | URISyntaxException e1) {
-                            e1.printStackTrace();
-                        }
-                        break;
+        //             case 3 : 
+        //                 try {
+        //                     Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=tMwFNMfjFuU&pp=ygUOY2xpbWF0ZSBjaGFuZ2U%3D"));
+        //                 } catch (IOException | URISyntaxException e1) {
+        //                     e1.printStackTrace();
+        //                 }
+        //                 break;
 
-                    case 4 : 
-                        try {
-                            Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=xznlCuhqfOI&pp=ygUVc2RnIDEzIGNsaW1hdGUgYWN0aW9u"));
-                        } catch (IOException | URISyntaxException e1) {
-                            e1.printStackTrace();
-                        }
-                        break;
-                    }
+        //             case 4 : 
+        //                 try {
+        //                     Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=xznlCuhqfOI&pp=ygUVc2RnIDEzIGNsaW1hdGUgYWN0aW9u"));
+        //                 } catch (IOException | URISyntaxException e1) {
+        //                     e1.printStackTrace();
+        //                 }
+        //                 break;
+        //             }
+        //         }
+        //     }
+        for(int i = 0 ; i <= 4 ; i++)
+        {   
+            if(e.getSource()==videoButton[i])
+            {    
+                try {
+                    Desktop.getDesktop().browse(new URI(videoList.get(i).getUrl()));
+                } catch (IOException | URISyntaxException e1) {
+                    e1.printStackTrace();
                 }
+                break;
             }
+        }
     }
 }
 

@@ -38,7 +38,7 @@ public class EditArticle implements ActionListener{
     JTextField searchBar;
 
     ArrayList<Article> articleList = new ArrayList<Article>();
-    String fileName = "Text Files/article.txt";
+    String fileName = "Text Files/articles.txt";
 
     //Constructor
     public EditArticle(){
@@ -93,14 +93,8 @@ public class EditArticle implements ActionListener{
         ObjectInputStream is;
         try {
             is = new ObjectInputStream(new FileInputStream(fileName));
-            
             try {
                 articleList = (ArrayList)is.readObject();
-                // System.out.println(articleList);
-                // System.out.println(articleList.get(1).getTitle());
-                // System.out.println(articleList.get(1).getUrl());
-                // System.out.println(articleList.get(0).getTitle());
-                // System.out.println(articleList.get(0).getUrl());
             } catch (ClassNotFoundException e1) {
                 System.out.println("Class Not Found");
                 e1.printStackTrace();
@@ -232,8 +226,4 @@ public class EditArticle implements ActionListener{
             }
         }
     }
-    
-
-
-
 }

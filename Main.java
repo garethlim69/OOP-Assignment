@@ -1,5 +1,7 @@
 import Administrator.A_HomePage;
+import Administrator.EditArticle;
 import Administrator.EditProgramDesc;
+import Administrator.EditVideo;
 import Public.*;
 
 public class Main 
@@ -7,9 +9,18 @@ public class Main
     public static void main(String [] args)
     {
         // The Register Page is the first page that appear when the user enters the app
-        // new RegisterPage();
-        new A_HomePage();
         
+        // new RegisterPage();
+
+        // new EditArticle();
+
+        // new SuggestionBox("User");
+
+        // new EditProgramDesc();
+        
+        // new AwarenessProgram("User");
+
+        new VideoZone("User");
        
     }
 }
