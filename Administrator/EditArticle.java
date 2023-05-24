@@ -36,6 +36,7 @@ public class EditArticle implements ActionListener{
     JPanel programPanel = new JPanel();
     JButton[] programButton = new JButton[10];
     JTextField searchBar;
+
     ArrayList<Article> articleList = new ArrayList<Article>();
 
     //Constructor
@@ -54,7 +55,7 @@ public class EditArticle implements ActionListener{
 
 
         String fileName = "Text Files/article.txt";
-        ArrayList<Article> articleList = new ArrayList<Article>();
+        
 
 
 //ADD SERIALIZED INFO TO TEXT (TO REMOVE)
@@ -93,7 +94,7 @@ public class EditArticle implements ActionListener{
             is = new ObjectInputStream(new FileInputStream(fileName));
             
             try {
-                articleList = (ArrayList<Article>)is.readObject();
+                articleList = (ArrayList)is.readObject();
                 System.out.println(articleList);
                 System.out.println(articleList.get(1).getTitle());
                 System.out.println(articleList.get(1).getUrl());
@@ -195,6 +196,7 @@ public class EditArticle implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e){
+        
         // Redirect to admin home page
         if(e.getSource() == homeButton)
         {
