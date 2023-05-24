@@ -9,7 +9,7 @@ public class Main
     public static void main(String [] args)
     {
         // The Register Page is the first page that appear when the user enters the app
-        
+
         // new RegisterPage();
 
         // new EditArticle();
@@ -20,7 +20,7 @@ public class Main
         
         // new AwarenessProgram("User");
 
-        new VideoZone("User");
+        new AwarenessProgram("User");
        
     }
 }

@@ -68,8 +68,10 @@ public class AwarenessProgram implements ActionListener
         desc.setLineWrap(true);
         desc.setWrapStyleWord(true);   
         desc.setFont(new Font("Arial",Font.PLAIN,18)); 
+        desc.setDisabledTextColor(Color.black);
         desc.setBounds(90,160,400,70);
         desc.setEditable(false);
+        desc.setEnabled(false);
         desc.setBackground(new Color(246,181,232));
         desc.setForeground(new Color(102,66,40));
 
