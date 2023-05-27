@@ -10,7 +10,7 @@ import java.net.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
-
+import javax.swing.JOptionPane;
 import Objects.Video;
 
 public class VideoZone implements ActionListener
@@ -36,7 +36,7 @@ public class VideoZone implements ActionListener
     JTextField searchBar;
     ImageIcon bgImage;
     JLabel bgLabel = new JLabel();
-
+    JPanel videoSearchPanel = new JPanel();
     String thisUser = "";
     int search;
 
@@ -116,7 +116,7 @@ public class VideoZone implements ActionListener
         videoPanel.setBackground(new Color(255,251,230));
         videoPanel.setOpaque(true);
         videoPanel.setLayout(new GridLayout(5,1,30,30));
-        
+    
         // All buttons on bottom ribbon
         homeButton = new JButton();
         homeButton.setFocusable(false);
@@ -188,6 +188,8 @@ public class VideoZone implements ActionListener
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
+
+
 }
 
     @Override
@@ -205,46 +207,64 @@ public class VideoZone implements ActionListener
         }
 
         // the videos which do not meet the requirement will be disabled
-        if(e.getSource() == searchButton)
-        {
-            String number = searchBar.getText();
+        // if(e.getSource() == searchButton)
+        // {
+        //     String number = searchBar.getText();
 
-            switch(number)
-            {
-                case "1" :
-                    videoButton[2].setEnabled(false);
-                    videoButton[3].setEnabled(false);
-                    videoButton[4].setEnabled(false);
-                    break;
+        //     switch(number)
+        //     {
+        //         case "1" :
+        //             videoButton[2].setEnabled(false);
+        //             videoButton[3].setEnabled(false);
+        //             videoButton[4].setEnabled(false);
+        //             break;
 
-                case "2" :
-                    videoButton[1].setEnabled(false);
-                    videoButton[3].setEnabled(false);
-                    videoButton[4].setEnabled(false);
-                    break;
+        //         case "2" :
+        //             videoButton[1].setEnabled(false);
+        //             videoButton[3].setEnabled(false);
+        //             videoButton[4].setEnabled(false);
+        //             break;
 
-                case "3" :
-                    videoButton[1].setEnabled(false);
-                    videoButton[2].setEnabled(false);
-                    videoButton[4].setEnabled(false);
-                    break;
+        //         case "3" :
+        //             videoButton[1].setEnabled(false);
+        //             videoButton[2].setEnabled(false);
+        //             videoButton[4].setEnabled(false);
+        //             break;
 
-                case "4" :
-                    videoButton[1].setEnabled(false);
-                    videoButton[2].setEnabled(false);
-                    videoButton[3].setEnabled(false);
-                    break;
+        //         case "4" :
+        //             videoButton[1].setEnabled(false);
+        //             videoButton[2].setEnabled(false);
+        //             videoButton[3].setEnabled(false);
+        //             break;
 
-                default:
-                    int i = 1;
-                    do{
-                        videoButton[i].setEnabled(true);
-                        i++;
-                    } while (i<=4);
-                    break;
+        //         default:
+        //             int i = 1;
+        //             do{
+        //                 videoButton[i].setEnabled(true);
+        //                 i++;
+        //             } while (i<=4);
+        //             break;
+        //     }
+        // }
+        
+        
+        if(e.getSource() == searchButton) {
+            try {
+                int number = Integer.parseInt(searchBar.getText());
+                videoButton[1].setEnabled(false);
+                videoButton[2].setEnabled(false);
+                videoButton[3].setEnabled(false);
+                videoButton[0].setEnabled(false);
+                for(int i = 0; i <= videoList.size(); i++) {
+                    if(number==i) {
+                        videoButton[i-1].setEnabled(true);
+                    }
+                } 
+            } catch (NumberFormatException e1) {
+                JOptionPane.showMessageDialog(frame,"Invalid Input", "Error", JOptionPane.WARNING_MESSAGE);
             }
         }
-
+        
 
         // User will be direct to the respective youtube video based on which button they click
         // for(int i=1 ; i<=4 ; i++)
@@ -287,7 +307,10 @@ public class VideoZone implements ActionListener
         //             }
         //         }
         //     }
-        for(int i = 0 ; i <= 4 ; i++)
+
+        
+
+        for(int i = 0; i < videoList.size(); i++)
         {   
             if(e.getSource()==videoButton[i])
             {    

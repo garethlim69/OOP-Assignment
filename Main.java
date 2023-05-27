@@ -1,7 +1,10 @@
 import Administrator.A_HomePage;
 import Administrator.EditArticle;
 import Administrator.EditProgramDesc;
+import Administrator.EditQuiz;
 import Administrator.EditVideo;
+import Administrator.InboxPage;
+import Objects.Quiz;
 import Public.*;
 
 public class Main 
@@ -20,7 +23,16 @@ public class Main
         
         // new AwarenessProgram("User");
 
-        new AwarenessProgram("User");
+        new A_HomePage();
+
+        // new VideoZone("User");
+        
+        // new InboxPage();
+
+        // new HomePage("User");
+
+        // new QuizMainPage("User");
        
+        // new EditQuiz();
     }
 }

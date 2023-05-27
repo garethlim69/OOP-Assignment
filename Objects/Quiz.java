@@ -11,12 +11,11 @@ public class Quiz implements Serializable{
     int correctAnswer;
 
 
-    public Quiz(String question, String answer1, String answer2, String answer3, String answer4, int correctAnswer) {
+    public Quiz(String question, String answer1, String answer2, String answer3, int correctAnswer) {
         this.question = question;
         this.answer1 = answer1;
         this.answer2 = answer2;
         this.answer3 = answer3;
-        this.answer4 = answer4;
         this.correctAnswer = correctAnswer;
     }
 
@@ -50,14 +49,6 @@ public class Quiz implements Serializable{
 
     public void setAnswer3(String answer3) {
         this.answer3 = answer3;
-    }
-
-    public String getAnswer4() {
-        return this.answer4;
-    }
-
-    public void setAnswer4(String answer4) {
-        this.answer4 = answer4;
     }
 
     public int getCorrectAnswer() {

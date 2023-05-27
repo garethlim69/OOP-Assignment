@@ -16,7 +16,6 @@ public class InboxPage implements ActionListener
     // Declare of all components needed to design the frame
     JFrame frame = new JFrame();
     JTextArea displayedMessage;
-    JScrollPane scroll = new JScrollPane (displayedMessage, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     ImageIcon bgImage;
     JLabel bgLabel = new JLabel();
     JLabel title;
@@ -64,15 +63,17 @@ public class InboxPage implements ActionListener
 
 
         // Display user message in the JTextArea
+        JScrollPane scroll = new JScrollPane (displayedMessage, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        frame.add(scroll);
         displayedMessage = new JTextArea();
         displayedMessage.setLineWrap(true);
         displayedMessage.setWrapStyleWord(true);   
         displayedMessage.setFont(new Font("Arial",Font.PLAIN,30));
         displayedMessage.setDisabledTextColor(Color.black);
-        displayedMessage.add(scroll);
         displayedMessage.setBounds(50,230,480,450);
         displayedMessage.setEditable(false);
         displayedMessage.setEnabled(false);
+
 
         String fileName = "Text Files/messages.txt";
 // ADD SERIALIZED INFO TO TEXT (TO REMOVE)
@@ -205,7 +206,6 @@ public class InboxPage implements ActionListener
         frame.add(title);
         frame.add(bgLabel);
         frame.add(displayedMessage);
-        frame.add(scroll);
         frame.add(fromUserPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setBackground(new Color(255,251,230));
@@ -214,6 +214,7 @@ public class InboxPage implements ActionListener
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
+        
     }
     
 
