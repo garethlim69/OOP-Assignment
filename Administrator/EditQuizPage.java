@@ -155,7 +155,6 @@ public class EditQuizPage implements ActionListener {
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         
-        System.out.println(quizList);
     }
 
     
@@ -173,7 +172,8 @@ public class EditQuizPage implements ActionListener {
         for (int i = 1; i <= quizList.size(); i++) {
             
             if (e.getSource() == quizButton[i]) {
-                new EditQuiz(quizList.get(i-1));
+                System.out.println(quizList);
+                new EditQuiz(quizList, i);
                 frame.dispose();
             }
 

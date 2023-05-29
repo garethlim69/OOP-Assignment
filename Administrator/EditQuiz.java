@@ -35,11 +35,13 @@ public class EditQuiz implements ActionListener {
     JLabel questionIconLabel = new JLabel();
 
     String fileName = "Text Files/quiz.txt";
-    ArrayList<Quiz> quizList = new ArrayList<Quiz>();
+    ArrayList<ArrayList<Quiz>> quizList = new ArrayList<ArrayList<Quiz>>();
+    int qnaSet = 0;
 
-    public EditQuiz(ArrayList<Quiz> quiz) {
+    public EditQuiz(ArrayList<ArrayList<Quiz>> quiz, int qns) {
 
         quizList = quiz;
+        qnaSet = qns - 1;
 
         // Top ribbon
         topRibbon = new JPanel();
@@ -48,7 +50,7 @@ public class EditQuiz implements ActionListener {
 
         // Title 
         title = new JLabel("Edit Question");
-        title.setBounds(210, 20, 400, 100);
+        title.setBounds(180, 20, 400, 100);
         title.setFont(new Font("Canva Sans",Font.BOLD,40));
         title.setForeground(Color.BLACK);
 
@@ -131,34 +133,34 @@ public class EditQuiz implements ActionListener {
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
 
-        System.out.println(quizList.get(0).getQuestion());
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        for(int i = 0; i < quizList.size(); i++)
+        for(int i = 1; i <= quizList.get(qnaSet).size(); i++)
         {   
             if(e.getSource()==quizButton[i])
             {
-                String question = JOptionPane.showInputDialog("Edit question", quizList.get(i).getQuestion());
-                String ans1 = JOptionPane.showInputDialog("Edit option 1", quizList.get(i).getAnswer1());
-                String ans2 = JOptionPane.showInputDialog("Edit option 2", quizList.get(i).getAnswer2());
-                String ans3 = JOptionPane.showInputDialog("Edit option 3", quizList.get(i).getAnswer3());
-                int correctAnswer = Integer.parseInt(JOptionPane.showInputDialog("Enter correct answer", quizList.get(i).getCorrectAnswer()));
-                quizList.get(i).setQuestion(question);
-                quizList.get(i).setAnswer1(ans1);
-                quizList.get(i).setAnswer2(ans2);
-                quizList.get(i).setAnswer3(ans3);
-                quizList.get(i).setCorrectAnswer(correctAnswer);
+                String question = JOptionPane.showInputDialog("Edit question", quizList.get(qnaSet).get(i-1).getQuestion());
+                String ans1 = JOptionPane.showInputDialog("Edit option 1", quizList.get(qnaSet).get(i-1).getAnswer1());
+                String ans2 = JOptionPane.showInputDialog("Edit option 2", quizList.get(qnaSet).get(i-1).getAnswer2());
+                String ans3 = JOptionPane.showInputDialog("Edit option 3", quizList.get(qnaSet).get(i-1).getAnswer3());
+                int correctAnswer = Integer.parseInt(JOptionPane.showInputDialog("Enter correct answer", quizList.get(qnaSet).get(i-1).getCorrectAnswer()));
+                quizList.get(qnaSet).get(i-1).setQuestion(question);
+                quizList.get(qnaSet).get(i-1).setAnswer1(ans1);
+                quizList.get(qnaSet).get(i-1).setAnswer2(ans2);
+                quizList.get(qnaSet).get(i-1).setAnswer3(ans3);
+                quizList.get(qnaSet).get(i-1).setCorrectAnswer(correctAnswer);
+
+                System.out.println(quizList);
+
 
                 try {
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
                     os.writeObject(quizList);
                     os.close();
                     System.out.println("done writing");
-                    new EditProgramDesc();
-                    frame.dispose();
                 } catch (IOException e1){
                     System.out.println("IOException");
                 }
