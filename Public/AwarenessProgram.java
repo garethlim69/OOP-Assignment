@@ -137,7 +137,20 @@ public class AwarenessProgram implements ActionListener
             programButton[i] = new JButton();
             programButton[i].setText(programList.get(i).getTitle());
             programButton[i].setFocusable(false);
-            programButton[i].setBounds(70, 390, 160, 40);
+            switch (i) {
+                case 0:
+                    programButton[i].setBounds(70, 390, 160, 40);
+                    break;
+                case 1:
+                    programButton[i].setBounds(340, 390, 160, 40);
+                    break;
+                case 2:
+                    programButton[i].setBounds(70, 610, 160, 40);
+                    break;
+                case 3:
+                    programButton[i].setBounds(340, 610, 160, 40);
+                    break;
+            }
             programButton[i].setBackground(new Color(180,98,152));
             programButton[i].setForeground(Color.WHITE);
             programButton[i].setFont(new Font("Canva Sans",Font.BOLD,15));

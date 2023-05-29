@@ -31,8 +31,12 @@ public class Main
 
         // new HomePage("User");
 
+        // new EditVideo();
+
         // new QuizMainPage("User");
        
-        new EditQuizPage();
+        // new EditQuizPage();
+
+        new ArticleZone("User");
     }
 }

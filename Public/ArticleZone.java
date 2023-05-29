@@ -113,7 +113,7 @@ public class ArticleZone implements ActionListener
         }
 
         // Panel to hold all article buttons
-        articlePanel.setBounds(150, 280, 300, 450);
+        articlePanel.setBounds(90, 280, 400, 450);
         articlePanel.setBackground(new Color(255,251,230));
         articlePanel.setOpaque(true);
         articlePanel.setLayout(new GridLayout(5,1,30,30));
@@ -212,94 +212,22 @@ public class ArticleZone implements ActionListener
             frame.dispose();
         }
 
-        // Insert any article number to search for that particular article
-        // When a topic is searched, the other topics which are not related will be disabled
-        if(e.getSource() == searchButton)
-        {
-            String number = searchBar.getText();
-
-            switch(number)
-            {
-                case "1" :
-                    articleButton[2].setEnabled(false);
-                    articleButton[3].setEnabled(false);
-                    articleButton[4].setEnabled(false);
-                    break;
-
-                case "2" :
-                    articleButton[1].setEnabled(false);
-                    articleButton[3].setEnabled(false);
-                    articleButton[4].setEnabled(false);
-                    break;
-
-                case "3" :
-                    articleButton[1].setEnabled(false);
-                    articleButton[2].setEnabled(false);
-                    articleButton[4].setEnabled(false);
-                    break;
-
-                case "4" :
-                    articleButton[1].setEnabled(false);
-                    articleButton[2].setEnabled(false);
-                    articleButton[3].setEnabled(false);
-                    break;
-                
-                default:
-                    int i = 1;
-                    do{
+        if(e.getSource() == searchButton) {
+            try {
+                String keyword = searchBar.getText().toLowerCase();
+                for (int i = 0; i < articleList.size(); i++){
+                    if (articleList.get(i).getTitle().toLowerCase().contains(keyword)){
                         articleButton[i].setEnabled(true);
-                        i++;
-                    } while(i<=4);
-                    break;
+                    }else {
+                        articleButton[i].setEnabled(false);
+                    }
+                }
+            } catch (NumberFormatException e1) {
+                JOptionPane.showMessageDialog(frame,"Invalid Input", "Error", JOptionPane.WARNING_MESSAGE);
             }
         }
 
-
-
-        
-        
-        // Direct to respective article webpage 
-        // for(int i=1 ; i<=4 ; i++)
-        // {
-        //     if(e.getSource() == articleButton[i])
-        //     {
-        //         switch(i)
-        //         {
-        //             case 1 : 
-        //                 try {
-        //                     Desktop.getDesktop().browse(new URI("https://www.globalgoals.org/goals/13-climate-action/"));
-        //                 } catch (IOException | URISyntaxException e1) {
-        //                     e1.printStackTrace();
-        //                 }
-        //                 break;
-
-        //             case 2 : 
-        //                 try {
-        //                     Desktop.getDesktop().browse(new URI("https://www.nytimes.com/article/climate-change-global-warming-faq.html"));
-        //                 } catch (IOException | URISyntaxException e1) {
-        //                     e1.printStackTrace();
-        //                 }
-        //                 break;
-
-        //             case 3 : 
-        //                 try {
-        //                     Desktop.getDesktop().browse(new URI("https://news.un.org/en/story/2022/01/1110722?gclid=Cj0KCQjwsIejBhDOARIsANYqkD3dKeygHF3fpMChsmkwcvP1Xz1EVXCe33y9iTJsaIGWhIJBi2FXaIsaAscvEALw_wcB"));
-        //                 } catch (IOException | URISyntaxException e1) {
-        //                     e1.printStackTrace();
-        //                 }
-        //                 break;
-
-        //             case 4 : 
-        //                 try {
-        //                     Desktop.getDesktop().browse(new URI("https://seagrant.psu.edu/node/1081"));
-        //                 } catch (IOException | URISyntaxException e1) {
-        //                     e1.printStackTrace();
-        //                 }
-        //                 break;
-        //             }
-        //         }
-        //     }
-        for(int i = 0 ; i <= 4 ; i++)
+        for(int i = 0 ; i < 4 ; i++)
         {   
             if(e.getSource()==articleButton[i])
             {    

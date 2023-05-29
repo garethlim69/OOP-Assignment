@@ -112,7 +112,7 @@ public class VideoZone implements ActionListener
         }
 
         // Panel to hold all video buttons 
-        videoPanel.setBounds(150, 280, 300, 450);
+        videoPanel.setBounds(90, 280, 400, 450);
         videoPanel.setBackground(new Color(255,251,230));
         videoPanel.setOpaque(true);
         videoPanel.setLayout(new GridLayout(5,1,30,30));
@@ -205,111 +205,22 @@ public class VideoZone implements ActionListener
             new Profile(thisUser);
             frame.dispose();
         }
-
-        // the videos which do not meet the requirement will be disabled
-        // if(e.getSource() == searchButton)
-        // {
-        //     String number = searchBar.getText();
-
-        //     switch(number)
-        //     {
-        //         case "1" :
-        //             videoButton[2].setEnabled(false);
-        //             videoButton[3].setEnabled(false);
-        //             videoButton[4].setEnabled(false);
-        //             break;
-
-        //         case "2" :
-        //             videoButton[1].setEnabled(false);
-        //             videoButton[3].setEnabled(false);
-        //             videoButton[4].setEnabled(false);
-        //             break;
-
-        //         case "3" :
-        //             videoButton[1].setEnabled(false);
-        //             videoButton[2].setEnabled(false);
-        //             videoButton[4].setEnabled(false);
-        //             break;
-
-        //         case "4" :
-        //             videoButton[1].setEnabled(false);
-        //             videoButton[2].setEnabled(false);
-        //             videoButton[3].setEnabled(false);
-        //             break;
-
-        //         default:
-        //             int i = 1;
-        //             do{
-        //                 videoButton[i].setEnabled(true);
-        //                 i++;
-        //             } while (i<=4);
-        //             break;
-        //     }
-        // }
-        
         
         if(e.getSource() == searchButton) {
             try {
-                int number = Integer.parseInt(searchBar.getText());
-                videoButton[1].setEnabled(false);
-                videoButton[2].setEnabled(false);
-                videoButton[3].setEnabled(false);
-                videoButton[0].setEnabled(false);
-                for(int i = 0; i <= videoList.size(); i++) {
-                    if(number==i) {
-                        videoButton[i-1].setEnabled(true);
+                String keyword = searchBar.getText().toLowerCase();
+                for (int i = 0; i < videoList.size(); i++){
+                    if (videoList.get(i).getTitle().toLowerCase().contains(keyword)){
+                        videoButton[i].setEnabled(true);
+                    }else {
+                        videoButton[i].setEnabled(false);
                     }
-                } 
+                }
             } catch (NumberFormatException e1) {
                 JOptionPane.showMessageDialog(frame,"Invalid Input", "Error", JOptionPane.WARNING_MESSAGE);
             }
         }
         
-
-        // User will be direct to the respective youtube video based on which button they click
-        // for(int i=1 ; i<=4 ; i++)
-        // {
-        //     if(e.getSource() == videoButton[i])
-        //     {
-        //         switch(i)
-        //         {
-        //             case 1 : 
-        //                 try {
-        //                     Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=EuwMB1Dal-4&pp=ygUOY2xpbWF0ZSBjaGFuZ2U%3D"));
-        //                 } catch (IOException | URISyntaxException e1) {
-        //                     e1.printStackTrace();
-        //                 }
-        //                 break;
-
-        //             case 2 : 
-        //                 try {
-        //                     Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=uynhvHZUOOo&pp=ygUOY2xpbWF0ZSBjaGFuZ2U%3D"));
-        //                 } catch (IOException | URISyntaxException e1) {
-        //                     e1.printStackTrace();
-        //                 }
-        //                 break;
-
-        //             case 3 : 
-        //                 try {
-        //                     Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=tMwFNMfjFuU&pp=ygUOY2xpbWF0ZSBjaGFuZ2U%3D"));
-        //                 } catch (IOException | URISyntaxException e1) {
-        //                     e1.printStackTrace();
-        //                 }
-        //                 break;
-
-        //             case 4 : 
-        //                 try {
-        //                     Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=xznlCuhqfOI&pp=ygUVc2RnIDEzIGNsaW1hdGUgYWN0aW9u"));
-        //                 } catch (IOException | URISyntaxException e1) {
-        //                     e1.printStackTrace();
-        //                 }
-        //                 break;
-        //             }
-        //         }
-        //     }
-
-        
-
         for(int i = 0; i < videoList.size(); i++)
         {   
             if(e.getSource()==videoButton[i])
