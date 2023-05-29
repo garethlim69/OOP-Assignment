@@ -69,10 +69,11 @@ public class InboxPage implements ActionListener
         displayedMessage.setLineWrap(true);
         displayedMessage.setWrapStyleWord(true);   
         displayedMessage.setFont(new Font("Arial",Font.PLAIN,30));
-        displayedMessage.setDisabledTextColor(Color.black);
         displayedMessage.setBounds(50,230,480,450);
         displayedMessage.setEditable(false);
         displayedMessage.setEnabled(false);
+        displayedMessage.setDisabledTextColor(Color.black);
+
 
 
         String fileName = "Text Files/messages.txt";

@@ -27,7 +27,7 @@ public class Main
 
         // new VideoZone("User");
         
-        // new InboxPage();
+        new InboxPage();
 
         // new HomePage("User");
 
@@ -37,6 +37,6 @@ public class Main
        
         // new EditQuizPage();
 
-        new ArticleZone("User");
+        // new ArticleZone("User");
     }
 }
