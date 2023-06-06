@@ -115,7 +115,7 @@ public class InboxPage implements ActionListener
             try {
                 messageList = (ArrayList)is.readObject();
                 StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < messageList.size(); i ++){
+                for (int i = (messageList.size() - 1); i > messageList.size() - 5; i--){
                     sb.append("Message: " + messageList.get(i).getMessage() + "\nUser: " + messageList.get(i).getUsername() + "\n\n");
                 }
                 displayedMessage.setText(sb.toString());

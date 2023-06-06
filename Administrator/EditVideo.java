@@ -204,24 +204,23 @@ public class EditVideo implements ActionListener{
         {   
             if(e.getSource()==programButton[i])
             {
-                //System.out.println(videoList);
-                //System.out.println("button " + i + " pressed");
                 String title = JOptionPane.showInputDialog("Edit the video title", videoList.get(i).getTitle());
                 String url = JOptionPane.showInputDialog("Edit the video URL", videoList.get(i).getUrl());
-                videoList.get(i).setTitle(title);
-                videoList.get(i).setUrl(url);
-                // System.out.println(videoList.get(i).getTitle());
-                // System.out.println(videoList.get(i).getUrl());
-
-                try {
-                    ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
-                    os.writeObject(videoList);
-                    os.close();
-                    System.out.println("done writing");
-                    new EditVideo();
-                    frame.dispose();
-                } catch (IOException e1){
-                    System.out.println("IOException");
+                if (title == null || url == null || title.equals("") || url.equals("") ) {
+                    JOptionPane.showMessageDialog(null, "Blank Entry Detected. No Changes Were Made");
+                }else {
+                    videoList.get(i).setTitle(title);
+                    videoList.get(i).setUrl(url);
+                    try {
+                        ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
+                        os.writeObject(videoList);
+                        os.close();
+                        System.out.println("done writing");
+                        new EditVideo();
+                        frame.dispose();
+                    } catch (IOException e1){
+                        System.out.println("IOException");
+                    }
                 }
             }
         }

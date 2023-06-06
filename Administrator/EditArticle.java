@@ -204,25 +204,32 @@ public class EditArticle implements ActionListener{
         {   
             if(e.getSource()==programButton[i])
             {
-                //System.out.println(articleList);
-                //System.out.println("button " + i + " pressed");
                 String title = JOptionPane.showInputDialog("Edit the video title", articleList.get(i).getTitle());
                 String url = JOptionPane.showInputDialog("Edit the video URL", articleList.get(i).getUrl());
-                articleList.get(i).setTitle(title);
-                articleList.get(i).setUrl(url);
+                if (title == null || url == null || title.equals("") || url.equals("") ) {
+                    JOptionPane.showMessageDialog(null, "Blank Entry Detected. No Changes Were Made");
+                }else {
+                    articleList.get(i).setTitle(title);
+                    articleList.get(i).setUrl(url);
+                    try {
+                        ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
+                        os.writeObject(articleList);
+                        os.close();
+                        System.out.println("done writing");
+                        new EditArticle();
+                        frame.dispose();
+                    } catch (IOException e1){
+                        System.out.println("IOException");
+                    }
+                }
+                //System.out.println(articleList);
+                //System.out.println("button " + i + " pressed");
+                
+                
                 // System.out.println(articleList.get(i).getTitle());
                 // System.out.println(articleList.get(i).getUrl());
 
-                try {
-                    ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
-                    os.writeObject(articleList);
-                    os.close();
-                    System.out.println("done writing");
-                    new EditArticle();
-                    frame.dispose();
-                } catch (IOException e1){
-                    System.out.println("IOException");
-                }
+                
             }
         }
     }

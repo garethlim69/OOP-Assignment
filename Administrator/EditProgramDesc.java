@@ -204,21 +204,24 @@ public class EditProgramDesc implements ActionListener
         for(int i = 0; i < programList.size(); i++)
         {   
             if(e.getSource()==programButton[i])
-            {
+            {   
                 String title = JOptionPane.showInputDialog("Edit the program's title", programList.get(i).getTitle());
                 String description = JOptionPane.showInputDialog("Edit the program's description", programList.get(i).getDescription());
-                programList.get(i).setTitle(title);
-                programList.get(i).setDescription(description);
-
-                try {
-                    ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
-                    os.writeObject(programList);
-                    os.close();
-                    System.out.println("done writing");
-                    new EditProgramDesc();
-                    frame.dispose();
-                } catch (IOException e1){
-                    System.out.println("IOException");
+                if (title == null || description == null || title.equals("") || description.equals("") ) {
+                    JOptionPane.showMessageDialog(null, "Blank Entry Detected. No Changes Were Made");
+                }else {
+                    programList.get(i).setTitle(title);
+                    programList.get(i).setDescription(description);
+                    try {
+                        ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
+                        os.writeObject(programList);
+                        os.close();
+                        System.out.println("done writing");
+                        new EditProgramDesc();
+                        frame.dispose();
+                    } catch (IOException e1){
+                        System.out.println("IOException");
+                    }
                 }
             }
         }
