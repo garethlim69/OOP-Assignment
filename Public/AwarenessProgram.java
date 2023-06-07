@@ -139,16 +139,16 @@ public class AwarenessProgram implements ActionListener
             programButton[i].setFocusable(false);
             switch (i) {
                 case 0:
-                    programButton[i].setBounds(70, 390, 160, 40);
+                    programButton[i].setBounds(50, 390, 200, 40);
                     break;
                 case 1:
-                    programButton[i].setBounds(340, 390, 160, 40);
+                    programButton[i].setBounds(320, 390, 200, 40);
                     break;
                 case 2:
-                    programButton[i].setBounds(70, 610, 160, 40);
+                    programButton[i].setBounds(25, 610, 250, 40);
                     break;
                 case 3:
-                    programButton[i].setBounds(340, 610, 160, 40);
+                    programButton[i].setBounds(295, 610, 250, 40);
                     break;
             }
             programButton[i].setBackground(new Color(180,98,152));
