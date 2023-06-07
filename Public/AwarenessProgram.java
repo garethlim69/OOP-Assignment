@@ -259,13 +259,23 @@ public class AwarenessProgram implements ActionListener
         {   
             if(e.getSource()==programButton[i])
             {
-                String title = JOptionPane.showInputDialog("Edit the program's title", programList.get(i).getTitle());
-                String description = JOptionPane.showInputDialog("Edit the program's description", programList.get(i).getDescription());
-                programList.get(i).setTitle(title);
-                programList.get(i).setDescription(description);
-
-
-                ImageIcon icon = new ImageIcon("Image/transport.png");
+                String imagePath = "";
+                System.out.println(i);
+                switch (i) {
+                    case 0:
+                        imagePath = "Image/transport.png";
+                        break;
+                    case 1:
+                        imagePath = "Image/food.jpg";
+                        break;
+                    case 2:
+                        imagePath = "Image/energy.jpg";
+                        break;
+                    case 3:
+                        imagePath = "Image/plantTree.jpg";
+                        break;
+                }
+                ImageIcon icon = new ImageIcon(imagePath);
                 Image img = icon.getImage();
                 Image image = img.getScaledInstance(400, 300, Image.SCALE_SMOOTH);
                 ImageIcon newIcon = new ImageIcon(image);
