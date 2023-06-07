@@ -116,8 +116,27 @@ public class QuizMainPage implements ActionListener
 
 
         // Set up of Quiz Icon and Button (Only 5 Quiz section available currently)
-        for (int i=1 ; i<=5 ; i++)
-        {
+        // for (int i=1 ; i<=5 ; i++)
+        // {
+        //     quizButton[i] = new JButton("  Quiz " + i);
+
+        //     quizButton[i].setBounds(0, 0, 50, 50);
+        //     quizButton[i].setFont(new Font("Canva Sans", Font.BOLD,30));
+        //     quizButton[i].setBackground(new Color(221,215,183));
+        //     quizButton[i].setFocusable(false);
+        //     quizButton[i].setForeground(Color.BLACK);
+
+        //     questionIcon = new ImageIcon("Image/questionIcon.png");
+        //     Image imageQuestion = questionIcon.getImage().getScaledInstance(quizButton[i].getWidth(),quizButton[i].getHeight(), Image.SCALE_SMOOTH);
+        //     questionIcon = new ImageIcon(imageQuestion);
+        //     quizButton[i].setIcon(questionIcon);
+
+        //     quizButton[i].addActionListener(this);
+
+        //     quizPanel.add(quizButton[i]);
+        // }
+        int i = 1;
+        do {
             quizButton[i] = new JButton("  Quiz " + i);
 
             quizButton[i].setBounds(0, 0, 50, 50);
@@ -134,7 +153,8 @@ public class QuizMainPage implements ActionListener
             quizButton[i].addActionListener(this);
 
             quizPanel.add(quizButton[i]);
-        }
+            i++;
+        } while (i<=5);
 
 
         // Quiz Panel  

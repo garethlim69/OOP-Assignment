@@ -348,7 +348,7 @@ public class Quiz implements ActionListener
 
 
 	// Method to proceed to the next Question whenever the user completed the previous question or the time is up
-    public void nextQuestion(int thisSecNum,int thisTotal_questions) 
+    private void nextQuestion(int thisSecNum,int thisTotal_questions) 
     {
         // As all the questions in the Quiz set are being asked, the result will be displayed to the user
 		if(index>=thisTotal_questions) 
@@ -430,7 +430,7 @@ public class Quiz implements ActionListener
 
 
 	// Method to display the answer of the current question to the user
-    public void displayAnswer() 
+    private void displayAnswer() 
     {
 		// Timer will stop
 		timer.stop();
@@ -502,7 +502,7 @@ public class Quiz implements ActionListener
 
 
 	// This method is called when all questions are answered by user
-    public void results()
+    private void results()
     {
 		// To make the button disappear from the frame
 		buttonA.setEnabled(false);
