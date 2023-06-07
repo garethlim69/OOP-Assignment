@@ -188,29 +188,11 @@ public class QuizMainPage implements ActionListener
         {
             if(e.getSource() == quizButton[i])
             {
-                switch(i)
-                {
-                    case 1 : 
-                        new QuizDetails(thisUser,1);
-                        frame.dispose();
-                        break;
-                    case 2 : 
-                        new QuizDetails(thisUser,2);
-                        frame.dispose();
-                        break;
-                    case 3 : 
-                        new QuizDetails(thisUser,3);
-                        frame.dispose();
-                        break;
-                    case 4 : 
-                        new QuizDetails(thisUser,4);
-                        frame.dispose();
-                        break;
-                    case 5 : 
-                        new QuizDetails(thisUser,5);
-                        frame.dispose();
-                        break;
-                }
+
+                new QuizDetails(thisUser, i);
+                frame.dispose();
+
+        
             }
         }
     }

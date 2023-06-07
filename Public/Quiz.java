@@ -2,111 +2,121 @@ package Public;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+
 import javax.swing.*;
+
 
 public class Quiz implements ActionListener
 {
+
+
 	
     // Use Array to store the questions for each set of the Quiz
-    String[][] questions = 
-    {
-        {
-			"Which of the following is the main cause of global warming?",
-        	"Which of the following greenhouse gases is most responsible for trapping heat in the Earth's atmosphere?",
-        	"Which of the following actions can individuals take to reduce their carbon footprint?",
-        	"Which of the following is an effect of climate change on the world's oceans?",
-        	"Which of the following renewable energy sources has the potential to provide the most energy globally?"
-		},
-		{
-			"Which sector contributes the most to global greenhouse gas emissions?",
-			"What is the primary cause of sea level rise?",
-			"Which of the following countries is currently the largest emitter of greenhouse gases?",
-			"Which of the following is a potential consequence of global warming on agriculture?",
-			"What is the main purpose of the Paris Agreement?"
-		},
-		{
-			"Which of the following is a renewable energy source?",
-			"What is the greenhouse gas that is released when livestock is raised for food production?",
-			"Which of the following is an example of an extreme weather event?",
-			"What is the name of the international treaty that aims to address climate change?",
-			"What is the term used to describe the amount of carbon emissions produced by an individual, organization, or country?"
-		},
-		{
-			"What is the process by which heat is trapped in the Earth's atmosphere and warms the planet?",
-			"What is the process by which ice sheets and glaciers melt, contributing to sea level rise?",
-			"What is the term used to describe the release of greenhouse gases from human activities, such as burning fossil fuels?",
-			"Which of the following actions can help reduce carbon emissions from transportation?",
-			"What is the term used to describe the long-term average of weather patterns in a particular area?"
-		},
-		{
-			"Which of the following is a major contributor to deforestation?",
-			"Which of the following is a key consequence of climate change on the world's oceans?",
-			"What is the term used to describe the process of capturing and storing carbon emissions to prevent them from entering the atmosphere?",
-			"Which of the following is a natural sink for carbon dioxide?",
-			"What is the term used to describe the natural process by which greenhouse gases trap heat in the Earth's atmosphere?"
-		}
-    };
+    // String[][] questions = 
+    // {
+    //     {
+	// 		"Which of the following is the main cause of global warming?",
+    //     	"Which of the following greenhouse gases is most responsible for trapping heat in the Earth's atmosphere?",
+    //     	"Which of the following actions can individuals take to reduce their carbon footprint?",
+    //     	"Which of the following is an effect of climate change on the world's oceans?",
+    //     	"Which of the following renewable energy sources has the potential to provide the most energy globally?"
+	// 	},
+	// 	{
+	// 		"Which sector contributes the most to global greenhouse gas emissions?",
+	// 		"What is the primary cause of sea level rise?",
+	// 		"Which of the following countries is currently the largest emitter of greenhouse gases?",
+	// 		"Which of the following is a potential consequence of global warming on agriculture?",
+	// 		"What is the main purpose of the Paris Agreement?"
+	// 	},
+	// 	{
+	// 		"Which of the following is a renewable energy source?",
+	// 		"What is the greenhouse gas that is released when livestock is raised for food production?",
+	// 		"Which of the following is an example of an extreme weather event?",
+	// 		"What is the name of the international treaty that aims to address climate change?",
+	// 		"What is the term used to describe the amount of carbon emissions produced by an individual, organization, or country?"
+	// 	},
+	// 	{
+	// 		"What is the process by which heat is trapped in the Earth's atmosphere and warms the planet?",
+	// 		"What is the process by which ice sheets and glaciers melt, contributing to sea level rise?",
+	// 		"What is the term used to describe the release of greenhouse gases from human activities, such as burning fossil fuels?",
+	// 		"Which of the following actions can help reduce carbon emissions from transportation?",
+	// 		"What is the term used to describe the long-term average of weather patterns in a particular area?"
+	// 	},
+	// 	{
+	// 		"Which of the following is a major contributor to deforestation?",
+	// 		"Which of the following is a key consequence of climate change on the world's oceans?",
+	// 		"What is the term used to describe the process of capturing and storing carbon emissions to prevent them from entering the atmosphere?",
+	// 		"Which of the following is a natural sink for carbon dioxide?",
+	// 		"What is the term used to describe the natural process by which greenhouse gases trap heat in the Earth's atmosphere?"
+	// 	}
+    // };
 
 
-	// Use Array to store the options of each question
-    String[][][] options = 
-    {
-        {
-			{"Deforestation","Burning of fossil fuels","Natural climate cycles"},
-        	{"Carbon dioxide","Methane","Water vapor"},
-        	{"Recycling","Waste more energy","Waste food"},
-        	{"Ocean acidification","Rising sea levels","Increased frequency of hurricanes"},
-        	{"Wind power","Solar power","Hydroelectric power"}
-		},
-		{
-			{"Agriculture","Transportation","Energy"},
-			{"Melting of glaciers and ice caps","Thermal expansions of ocean water","Increased rainfall and runoff"},
-			{"China","United States","India"},
-			{"Increased crop yields","Decreased soil erosion","Crop failures"},
-			{"To reduce greenhouse gas emissions","To promote economic development","To regulate international trade"}
-		},
-		{
-			{"Coal","Oil","Solar"},
-			{"Carbon dioxide","Methane","Nitrous oxide"},
-			{"A sunny day","A hurricane","A light rain shower"},
-			{"The Paris Agreement","The Kyoto Protocol","The Montreal Protocol"},
-			{"Carbon capture","Carbon offset","Carbon footprint"}
-		},
-		{
-			{"Global cooling","Global warming","Climate stabilization"},
-			{"Ocean acidification","Permafrost thawing","Glacial melting"},
-			{"Anthropogenic emissions","Natural emissions","Non-anthropogenic emissions"},
-			{"Walking instead of driving","Driving an electric car","Flying frequently for travel"},
-			{"Climate","Weather","Temperature"}
-		},
-		{
-			{"Planting new trees","Building new infrastructure","Clearing land for agriculture"},
-			{"Increased fish populations","Increased ocean acidity","Decreased sea surface temperatures"},
-			{"Carbon capture and storage","Carbon offsetting","Carbon footprinting"},
-			{"Oceans","Fossil fuels","Deforested land"},
-			{"Climate adaptation","Climate mitigation","The greenhouse effect"}
-		}
-    };
+	// // Use Array to store the options of each question
+    // String[][][] options = 
+    // {
+    //     {
+	// 		{"Deforestation","Burning of fossil fuels","Natural climate cycles"},
+    //     	{"Carbon dioxide","Methane","Water vapor"},
+    //     	{"Recycling","Waste more energy","Waste food"},
+    //     	{"Ocean acidification","Rising sea levels","Increased frequency of hurricanes"},
+    //     	{"Wind power","Solar power","Hydroelectric power"}
+	// 	},
+	// 	{
+	// 		{"Agriculture","Transportation","Energy"},
+	// 		{"Melting of glaciers and ice caps","Thermal expansions of ocean water","Increased rainfall and runoff"},
+	// 		{"China","United States","India"},
+	// 		{"Increased crop yields","Decreased soil erosion","Crop failures"},
+	// 		{"To reduce greenhouse gas emissions","To promote economic development","To regulate international trade"}
+	// 	},
+	// 	{
+	// 		{"Coal","Oil","Solar"},
+	// 		{"Carbon dioxide","Methane","Nitrous oxide"},
+	// 		{"A sunny day","A hurricane","A light rain shower"},
+	// 		{"The Paris Agreement","The Kyoto Protocol","The Montreal Protocol"},
+	// 		{"Carbon capture","Carbon offset","Carbon footprint"}
+	// 	},
+	// 	{
+	// 		{"Global cooling","Global warming","Climate stabilization"},
+	// 		{"Ocean acidification","Permafrost thawing","Glacial melting"},
+	// 		{"Anthropogenic emissions","Natural emissions","Non-anthropogenic emissions"},
+	// 		{"Walking instead of driving","Driving an electric car","Flying frequently for travel"},
+	// 		{"Climate","Weather","Temperature"}
+	// 	},
+	// 	{
+	// 		{"Planting new trees","Building new infrastructure","Clearing land for agriculture"},
+	// 		{"Increased fish populations","Increased ocean acidity","Decreased sea surface temperatures"},
+	// 		{"Carbon capture and storage","Carbon offsetting","Carbon footprinting"},
+	// 		{"Oceans","Fossil fuels","Deforested land"},
+	// 		{"Climate adaptation","Climate mitigation","The greenhouse effect"}
+	// 	}
+    // };
 
 
-	// Use Array to store the correct answer of each question
-    char[][] answers = 	
-    {
-        {'B','C','A','A','B'},
-		{'C','B','A','C','A'},
-		{'C','B','B','A','C'},
-		{'B','C','A','A','A'},
-		{'C','B','A','A','C'}
-    };
+	// // Use Array to store the correct answer of each question
+    // char[][] answers = 	
+    // {
+    //     {'B','C','A','A','B'},
+	// 	{'C','B','A','C','A'},
+	// 	{'C','B','B','A','C'},
+	// 	{'B','C','A','A','A'},
+	// 	{'C','B','A','A','C'}
+    // };
+	
 	
 
 	
 	// Initialize of variable
 	int secNum=0;
-    char answer;  // actual answer of the question
-    int index;   // question number
+    int answer;  // actual answer of the question
+    int index = 0;   // question number
     int correct_guesses =0;    // to record the total correct guess of user
-    int total_questions = questions[secNum].length;  // total number of question in the quiz
+    int total_questions = 5;  // total number of question in the quiz
     int result;     // the percentage acquired by the user
 	int points;     // points earned by the user
     int seconds=10;    // time length for each question
@@ -155,6 +165,9 @@ public class Quiz implements ActionListener
 		}
 	});
 
+	String fileName = "Text Files/quiz.txt";
+    ArrayList<ArrayList<Objects.Quiz>> quizList = new ArrayList<ArrayList<Objects.Quiz>>();
+	ArrayList<Objects.Quiz> quiz = new ArrayList<Objects.Quiz>();
 
 
 
@@ -162,8 +175,29 @@ public class Quiz implements ActionListener
 	// The username of the current user and the Quiz section chosen is passed into the constructor
     public Quiz(String username,int thisSecNum)
     {
+		ObjectInputStream is;
+        try {
+            is = new ObjectInputStream(new FileInputStream(fileName));
+            try {
+                quizList = (ArrayList)is.readObject();
+            } catch (ClassNotFoundException e1) {
+                System.out.println("Class Not Found");
+                e1.printStackTrace();
+            }
+            is.close();
+        } catch (FileNotFoundException e1) {
+            System.out.println("File Not Found");
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            System.out.println("IO Exception");
+            e1.printStackTrace();
+        }
+
+		
+
 		secNum = thisSecNum;
-		total_questions = questions[secNum].length;
+		quiz = quizList.get(secNum-1);
+		total_questions = quiz.size();
 		currentUser = username;
 
         // To display question number on the top of page
@@ -328,11 +362,13 @@ public class Quiz implements ActionListener
         {
 			quesNumberDisplay.setText("Question "+(index+1) + "/" + thisTotal_questions);
 
+
+
 			// Acquire the questions and its options from Arrays and placed them in respective panel
-			questionAsked.setText(questions[thisSecNum][index]);
-			answer_labelA.setText(options[thisSecNum][index][0]);
-			answer_labelB.setText(options[thisSecNum][index][1]);
-			answer_labelC.setText(options[thisSecNum][index][2]);
+			questionAsked.setText(quiz.get(index).getQuestion());
+			answer_labelA.setText(quiz.get(index).getAnswer1());
+			answer_labelB.setText(quiz.get(index).getAnswer2());
+			answer_labelC.setText(quiz.get(index).getAnswer3());
 
 
 			// Start the timer whenever the new question is displayed
@@ -356,22 +392,22 @@ public class Quiz implements ActionListener
 		// If the user's guess is correct, increment the correct_guesses
 		if(e.getSource()==buttonA) 
         {
-			answer= 'A';
-			if(answer == answers[secNum][index]) 
+			answer = 1;
+			if(answer == quiz.get(index).getCorrectAnswer()) 
 			{
 				correct_guesses++;
 			}
 		}
 		if(e.getSource()==buttonB) {
-			answer= 'B';
-			if(answer == answers[secNum][index]) 
+			answer = 2;
+			if(answer == quiz.get(index).getCorrectAnswer()) 
 			{
 				correct_guesses++;
 			}
 		}
 		if(e.getSource()==buttonC) {
-			answer= 'C';
-			if(answer == answers[secNum][index]) 
+			answer = 3;
+			if(answer == quiz.get(index).getCorrectAnswer()) 
 			{
 				correct_guesses++;
 			}
@@ -406,20 +442,20 @@ public class Quiz implements ActionListener
 		
 
         // All the wrong options will be colored in red
-		if(answers[secNum][index] != 'A')
+		if(quiz.get(index).getCorrectAnswer() != 1)
 			answer_labelA.setForeground(Color.RED);
-		if(answers[secNum][index] != 'B')
+		if(quiz.get(index).getCorrectAnswer() != 2)
 			answer_labelB.setForeground(Color.RED);
-		if(answers[secNum][index] != 'C')
+		if(quiz.get(index).getCorrectAnswer() != 3)
 			answer_labelC.setForeground(Color.RED);
 		
 
 		// The only correct answer will be colored in green
-		if(answers[secNum][index] == 'A')
+		if(quiz.get(index).getCorrectAnswer() == 1)
 			answer_labelA.setForeground(Color.GREEN);
-		if(answers[secNum][index] == 'B')
+		if(quiz.get(index).getCorrectAnswer() == 2)
 			answer_labelB.setForeground(Color.GREEN);
-		if(answers[secNum][index] == 'C')
+		if(quiz.get(index).getCorrectAnswer() == 3)
 			answer_labelC.setForeground(Color.GREEN);
         
 

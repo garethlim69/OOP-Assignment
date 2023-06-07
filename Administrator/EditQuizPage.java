@@ -172,7 +172,6 @@ public class EditQuizPage implements ActionListener {
         for (int i = 1; i <= quizList.size(); i++) {
             
             if (e.getSource() == quizButton[i]) {
-                System.out.println(quizList);
                 new EditQuiz(quizList, i);
                 frame.dispose();
             }

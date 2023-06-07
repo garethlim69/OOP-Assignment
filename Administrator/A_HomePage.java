@@ -26,6 +26,7 @@
      JButton homeButton;
      JButton notifyButton;
      JButton settingButton;
+     JButton editQuizButton;
      JPanel panel;
      JPanel topRibbon;
      JPanel bottomRibbon;
@@ -95,17 +96,26 @@
          editVideoButton.setBackground(new Color(67,125,178));
          editVideoButton.setForeground(Color.WHITE);
          editVideoButton.addActionListener(this);
- 
+        
+         editQuizButton = new JButton("Edit Quiz");
+         editQuizButton.setBounds(300, 500, 200, 200);
+         editQuizButton.setFont(new Font("Canva Sans",Font.BOLD,35));
+         editQuizButton.setFocusable(false);
+         editQuizButton.setBackground(new Color(67,125,178));
+         editQuizButton.setForeground(Color.WHITE);
+         editQuizButton.addActionListener(this);
+
          // Panel to hold all buttons
          panel = new JPanel();
-         panel.setBounds(70, 280, 450, 300);
+         panel.setBounds(70, 280, 450, 380);
          panel.setBackground(new Color(255,251,230));
          panel.setOpaque(true);
-         panel.setLayout(new GridLayout(4,1,10,40));
+         panel.setLayout(new GridLayout(5,1,10,40));
          panel.add(loginButton);
          panel.add(seeInboxButton);
          panel.add(editProgramButton);
          panel.add(editArticleButton);
+         panel.add(editQuizButton);
  
          // Buttons on bottom panel
          homeButton = new JButton();
@@ -203,6 +213,12 @@
          if(e.getSource() == editVideoButton)
          {
             new EditVideo();
+            frame.dispose();
+         }
+
+         if(e.getSource() == editQuizButton)
+         {
+            new EditQuizPage();
             frame.dispose();
          }
      }

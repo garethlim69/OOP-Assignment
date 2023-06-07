@@ -41,7 +41,7 @@ public class QuizDetails implements ActionListener
            -- The initial index of any Array is always 0
            -- Since the chosenQuizNumber started by 1, we need to minus 1 to gain the Quiz section
         */
-        quizSecNum = chosenQuizNumber-1;
+        quizSecNum = chosenQuizNumber;
         thisUser = username;
 
 
@@ -208,29 +208,8 @@ public class QuizDetails implements ActionListener
         */
         if(e.getSource() == startButton)
         {
-            switch(quizSecNum)
-            {
-                case 0 : 
-                    new Quiz(thisUser,0);
-                    frame.dispose();
-                    break;
-                case 1 : 
-                    new Quiz(thisUser,1);
-                    frame.dispose();
-                    break;
-                case 2 : 
-                    new Quiz(thisUser,2);
-                    frame.dispose();
-                    break;
-                case 3 : 
-                    new Quiz(thisUser,3);
-                    frame.dispose();
-                    break;
-                case 4 : 
-                    new Quiz(thisUser,4);
-                    frame.dispose();
-                    break;
-            }
+            new Quiz(thisUser, quizSecNum);
+            frame.dispose();
         }
     }
 }

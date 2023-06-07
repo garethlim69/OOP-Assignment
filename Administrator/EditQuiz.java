@@ -138,8 +138,17 @@ public class EditQuiz implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        if(e.getSource() == homeButton)
+        {
+            new A_HomePage();
+            frame.dispose();
+        }
+
         for(int i = 1; i <= quizList.get(qnaSet).size(); i++)
         {   
+
+            
+
             if(e.getSource()==quizButton[i])
             {
                 String question = JOptionPane.showInputDialog("Edit question", quizList.get(qnaSet).get(i-1).getQuestion());
@@ -152,8 +161,6 @@ public class EditQuiz implements ActionListener {
                 quizList.get(qnaSet).get(i-1).setAnswer2(ans2);
                 quizList.get(qnaSet).get(i-1).setAnswer3(ans3);
                 quizList.get(qnaSet).get(i-1).setCorrectAnswer(correctAnswer);
-
-                System.out.println(quizList);
 
 
                 try {
