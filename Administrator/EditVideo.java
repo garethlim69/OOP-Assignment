@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 
 import Objects.Video;
 
-public class EditVideo implements ActionListener{
+public class EditVideo implements ActionListener {
     // Declare all components needed to design frame
     JFrame frame = new JFrame();
     JLabel title;
@@ -40,21 +40,20 @@ public class EditVideo implements ActionListener{
     ArrayList<Video> videoList = new ArrayList<Video>();
     String fileName = "Text Files/videos.txt";
 
-    //Constructor
-    public EditVideo(){
-         // Top ribbon
+    // Constructor
+    public EditVideo() {
+        // Top ribbon
         topRibbon = new JPanel();
         topRibbon.setBounds(0, 0, 600, 150);
-        topRibbon.setBackground(new Color(248,207,137));
+        topRibbon.setBackground(new Color(248, 207, 137));
 
-
-        // Title 
+        // Title
         title = new JLabel("Edit Video");
         title.setBounds(60, 20, 500, 100);
-        title.setFont(new Font("Canva Sans",Font.BOLD,40));
+        title.setFont(new Font("Canva Sans", Font.BOLD, 40));
         title.setForeground(Color.BLACK);
 
-// ADD SERIALIZED INFO TO TEXT (TO REMOVE)
+        // SERIALIZE AND ADD DATA TO TXT FILE (ONLY USE WHEN TXT FILES ARE EMPTY)
         // String video1Title = "Video 1";
         // String video1URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
         // String video2Title = "Video 2";
@@ -77,24 +76,21 @@ public class EditVideo implements ActionListener{
         // System.out.println("video list before printing: " + videoListRead);
 
         // try {
-        //     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName, false));
-        //     os.writeObject(videoListRead);
-        //     os.close();
-        //     System.out.println("done writing");
+        // ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName,
+        // false));
+        // os.writeObject(videoListRead);
+        // os.close();
+        // System.out.println("done writing");
         // } catch (IOException e1){
-        //     System.out.println("IOException");
+        // System.out.println("IOException");
         // }
-        
-// END TO REMOVE
 
-
-        //Deserializing component
-        
+        // Deserialize Content of videos.txt
         ObjectInputStream is;
         try {
             is = new ObjectInputStream(new FileInputStream(fileName));
             try {
-                videoList = (ArrayList)is.readObject();
+                videoList = (ArrayList) is.readObject();
             } catch (ClassNotFoundException e1) {
                 System.out.println("Class Not Found");
                 e1.printStackTrace();
@@ -108,27 +104,25 @@ public class EditVideo implements ActionListener{
             e1.printStackTrace();
         }
 
-        for (int i = 0; i < videoList.size(); i++){
+        // Create Buttons Based on The Content of videos.txt
+        for (int i = 0; i < videoList.size(); i++) {
             programButton[i] = new JButton();
             programButton[i].setText(videoList.get(i).getTitle());
             programButton[i].setBounds(0, 0, 50, 50);
-            programButton[i].setFont(new Font("Canva Sans", Font.BOLD,20));
-            programButton[i].setBackground(new Color(241,171,80));
+            programButton[i].setFont(new Font("Canva Sans", Font.BOLD, 20));
+            programButton[i].setBackground(new Color(241, 171, 80));
             programButton[i].setFocusable(false);
             programButton[i].setForeground(Color.WHITE);
             programButton[i].addActionListener(this);
             programPanel.add(programButton[i]);
         }
 
-        
-
         // Panel to hold all program buttons
         programPanel.setLayout(null);
         programPanel.setBounds(60, 200, 480, 450);
-        programPanel.setBackground(new Color(255,251,230));
+        programPanel.setBackground(new Color(255, 251, 230));
         programPanel.setOpaque(true);
-        programPanel.setLayout(new GridLayout(5,1,30,30));
-        
+        programPanel.setLayout(new GridLayout(5, 1, 30, 30));
 
         // All buttons on bottom ribbon
         homeButton = new JButton();
@@ -138,7 +132,8 @@ public class EditVideo implements ActionListener{
         homeButton.setContentAreaFilled(false);
         homeButton.setBorderPainted(false);
         homeIcon = new ImageIcon("Image/homeIcon.png");
-        Image imageHome = homeIcon.getImage().getScaledInstance(homeButton.getWidth(),homeButton.getHeight(), Image.SCALE_SMOOTH);
+        Image imageHome = homeIcon.getImage().getScaledInstance(homeButton.getWidth(), homeButton.getHeight(),
+                Image.SCALE_SMOOTH);
         homeIcon = new ImageIcon(imageHome);
         homeButton.setIcon(homeIcon);
         homeButton.addActionListener(this);
@@ -150,7 +145,8 @@ public class EditVideo implements ActionListener{
         notifyButton.setContentAreaFilled(false);
         notifyButton.setBorderPainted(false);
         notifyIcon = new ImageIcon("Image/notifyIcon.png");
-        Image imageNotify = notifyIcon.getImage().getScaledInstance(notifyButton.getWidth(),notifyButton.getHeight(), Image.SCALE_SMOOTH);
+        Image imageNotify = notifyIcon.getImage().getScaledInstance(notifyButton.getWidth(), notifyButton.getHeight(),
+                Image.SCALE_SMOOTH);
         notifyIcon = new ImageIcon(imageNotify);
         notifyButton.setIcon(notifyIcon);
 
@@ -161,7 +157,8 @@ public class EditVideo implements ActionListener{
         settingButton.setContentAreaFilled(false);
         settingButton.setBorderPainted(false);
         settingIcon = new ImageIcon("Image/settingIcon.png");
-        Image imageSetting = settingIcon.getImage().getScaledInstance(settingButton.getWidth(),settingButton.getHeight(), Image.SCALE_SMOOTH);
+        Image imageSetting = settingIcon.getImage().getScaledInstance(settingButton.getWidth(),
+                settingButton.getHeight(), Image.SCALE_SMOOTH);
         settingIcon = new ImageIcon(imageSetting);
         settingButton.setIcon(settingIcon);
 
@@ -169,7 +166,7 @@ public class EditVideo implements ActionListener{
         bottomRibbon = new JPanel();
         bottomRibbon.setLayout(new GridLayout(1, 4, 10, 0));
         bottomRibbon.setBounds(0, 700, 600, 80);
-        bottomRibbon.setBackground(new Color(102,66,40));
+        bottomRibbon.setBackground(new Color(102, 66, 40));
         bottomRibbon.add(homeButton);
         bottomRibbon.add(notifyButton);
         bottomRibbon.add(settingButton);
@@ -180,35 +177,33 @@ public class EditVideo implements ActionListener{
         frame.add(topRibbon);
         frame.add(programPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setBackground(new Color(255,251,230));
-        frame.setSize(600,800);
+        frame.getContentPane().setBackground(new Color(255, 251, 230));
+        frame.setSize(600, 800);
         frame.setResizable(false);
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
 
     }
-    
+
     @Override
-    public void actionPerformed(ActionEvent e){
-        
+    public void actionPerformed(ActionEvent e) {
+
         // Redirect to admin home page
-        if(e.getSource() == homeButton)
-        {
+        if (e.getSource() == homeButton) {
             System.out.println(videoList);
             new A_HomePage();
             frame.dispose();
         }
 
-        for(int i = 0 ; i <= 4 ; i++)
-        {   
-            if(e.getSource()==programButton[i])
-            {
+        // Edit Video Component
+        for (int i = 0; i < videoList.size(); i++) {
+            if (e.getSource() == programButton[i]) {
                 String title = JOptionPane.showInputDialog("Edit the video title", videoList.get(i).getTitle());
                 String url = JOptionPane.showInputDialog("Edit the video URL", videoList.get(i).getUrl());
-                if (title == null || url == null || title.equals("") || url.equals("") ) {
+                if (title == null || url == null || title.equals("") || url.equals("")) {
                     JOptionPane.showMessageDialog(null, "Blank Entry Detected. No Changes Were Made");
-                }else {
+                } else {
                     videoList.get(i).setTitle(title);
                     videoList.get(i).setUrl(url);
                     try {
@@ -218,7 +213,7 @@ public class EditVideo implements ActionListener{
                         System.out.println("done writing");
                         new EditVideo();
                         frame.dispose();
-                    } catch (IOException e1){
+                    } catch (IOException e1) {
                         System.out.println("IOException");
                     }
                 }

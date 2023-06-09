@@ -14,8 +14,7 @@ import javax.swing.*;
 
 import Objects.Article;
 
-public class ArticleZone implements ActionListener
-{
+public class ArticleZone implements ActionListener {
     // Declare all components needed to design frame
     JFrame frame = new JFrame();
     JButton homeButton;
@@ -29,7 +28,7 @@ public class ArticleZone implements ActionListener
     ImageIcon settingIcon;
     JPanel bottomRibbon;
     JPanel articlePanel = new JPanel();
-    JButton[] articleButton = new JButton[10];  //
+    JButton[] articleButton = new JButton[10]; //
     ImageIcon articleIcon;
     ImageIcon searchIcon;
     JLabel searchIconLabel = new JLabel();
@@ -40,27 +39,26 @@ public class ArticleZone implements ActionListener
 
     String thisUser = "";
     int search;
-    
+
     ArrayList<Article> articleList = new ArrayList<Article>();
     String fileName = "Text Files/articles.txt";
 
-    // Constructor 
+    // Constructor
     // The username of current user is passed into this constructor
-    public ArticleZone(String currentUser)
-    {
+    public ArticleZone(String currentUser) {
         thisUser = currentUser;
 
         // Top ribbon
         bgImage = new ImageIcon("Image/ArticleTR.png");
         bgLabel.setBounds(0, 0, 600, 190);
-        Image image = bgImage.getImage().getScaledInstance(bgLabel.getWidth(),bgLabel.getHeight(), Image.SCALE_SMOOTH);
+        Image image = bgImage.getImage().getScaledInstance(bgLabel.getWidth(), bgLabel.getHeight(), Image.SCALE_SMOOTH);
         bgImage = new ImageIcon(image);
         bgLabel.setIcon(bgImage);
 
         // Searching bar
         searchBar = new JTextField("Enter the number of topic ");
         searchBar.setBounds(100, 200, 330, 50);
-        searchBar.setFont(new Font("Canva Sans",Font.PLAIN,20));
+        searchBar.setFont(new Font("Canva Sans", Font.PLAIN, 20));
 
         // Search icon
         searchButton = new JButton();
@@ -70,17 +68,18 @@ public class ArticleZone implements ActionListener
         searchButton.setContentAreaFilled(false);
         searchButton.setBorderPainted(false);
         searchIcon = new ImageIcon("Image/searchIcon.png");
-        Image imageSearch = searchIcon.getImage().getScaledInstance(searchButton.getWidth(),searchButton.getHeight(), Image.SCALE_SMOOTH);
+        Image imageSearch = searchIcon.getImage().getScaledInstance(searchButton.getWidth(), searchButton.getHeight(), Image.SCALE_SMOOTH);
         searchIcon = new ImageIcon(imageSearch);
         searchButton.setIcon(searchIcon);
         searchButton.addActionListener(this);
 
+        // Deserialize Content of articles.txt
         ObjectInputStream is;
         try {
             is = new ObjectInputStream(new FileInputStream(fileName));
-            
+
             try {
-                articleList = (ArrayList)is.readObject();
+                articleList = (ArrayList) is.readObject();
             } catch (ClassNotFoundException e1) {
                 System.out.println("Class Not Found");
                 e1.printStackTrace();
@@ -94,18 +93,17 @@ public class ArticleZone implements ActionListener
             e1.printStackTrace();
         }
 
-        // Set up of Article Icon and Button (Only 4 articles available currently)
-        for (int i = 0; i < articleList.size(); i++)
-        {
+        // Generate buttons based on number of articles and article title in articles.txt
+        for (int i = 0; i < articleList.size(); i++) {
             articleButton[i] = new JButton();
             articleButton[i].setText(articleList.get(i).getTitle());
             articleButton[i].setBounds(0, 0, 50, 50);
-            articleButton[i].setFont(new Font("Canva Sans", Font.BOLD,30));
-            articleButton[i].setBackground(new Color(40,101,132));
+            articleButton[i].setFont(new Font("Canva Sans", Font.BOLD, 30));
+            articleButton[i].setBackground(new Color(40, 101, 132));
             articleButton[i].setFocusable(false);
             articleButton[i].setForeground(Color.WHITE);
             articleIcon = new ImageIcon("Image/articleIcon.png");
-            Image imageArticle = articleIcon.getImage().getScaledInstance(articleButton[i].getWidth(),articleButton[i].getHeight(), Image.SCALE_SMOOTH);
+            Image imageArticle = articleIcon.getImage().getScaledInstance(articleButton[i].getWidth(), articleButton[i].getHeight(), Image.SCALE_SMOOTH);
             articleIcon = new ImageIcon(imageArticle);
             articleButton[i].setIcon(articleIcon);
             articleButton[i].addActionListener(this);
@@ -114,10 +112,9 @@ public class ArticleZone implements ActionListener
 
         // Panel to hold all article buttons
         articlePanel.setBounds(90, 280, 400, 450);
-        articlePanel.setBackground(new Color(255,251,230));
+        articlePanel.setBackground(new Color(255, 251, 230));
         articlePanel.setOpaque(true);
-        articlePanel.setLayout(new GridLayout(5,1,30,30));
-        
+        articlePanel.setLayout(new GridLayout(5, 1, 30, 30));
 
         // All buttons on bottom ribbon
         homeButton = new JButton();
@@ -127,7 +124,7 @@ public class ArticleZone implements ActionListener
         homeButton.setContentAreaFilled(false);
         homeButton.setBorderPainted(false);
         homeIcon = new ImageIcon("Image/homeIcon.png");
-        Image imageHome = homeIcon.getImage().getScaledInstance(homeButton.getWidth(),homeButton.getHeight(), Image.SCALE_SMOOTH);
+        Image imageHome = homeIcon.getImage().getScaledInstance(homeButton.getWidth(), homeButton.getHeight(), Image.SCALE_SMOOTH);
         homeIcon = new ImageIcon(imageHome);
         homeButton.setIcon(homeIcon);
         homeButton.addActionListener(this);
@@ -139,7 +136,7 @@ public class ArticleZone implements ActionListener
         profileButton.setContentAreaFilled(false);
         profileButton.setBorderPainted(false);
         profileIcon = new ImageIcon("Image/profileIcon.png");
-        Image imageProfile = profileIcon.getImage().getScaledInstance(profileButton.getWidth(),profileButton.getHeight(), Image.SCALE_SMOOTH);
+        Image imageProfile = profileIcon.getImage().getScaledInstance(profileButton.getWidth(), profileButton.getHeight(), Image.SCALE_SMOOTH);
         profileIcon = new ImageIcon(imageProfile);
         profileButton.setIcon(profileIcon);
         profileButton.addActionListener(this);
@@ -151,7 +148,7 @@ public class ArticleZone implements ActionListener
         notifyButton.setContentAreaFilled(false);
         notifyButton.setBorderPainted(false);
         notifyIcon = new ImageIcon("Image/notifyIcon.png");
-        Image imageNotify = notifyIcon.getImage().getScaledInstance(notifyButton.getWidth(),notifyButton.getHeight(), Image.SCALE_SMOOTH);
+        Image imageNotify = notifyIcon.getImage().getScaledInstance(notifyButton.getWidth(), notifyButton.getHeight(), Image.SCALE_SMOOTH);
         notifyIcon = new ImageIcon(imageNotify);
         notifyButton.setIcon(notifyIcon);
 
@@ -162,16 +159,15 @@ public class ArticleZone implements ActionListener
         settingButton.setContentAreaFilled(false);
         settingButton.setBorderPainted(false);
         settingIcon = new ImageIcon("Image/settingIcon.png");
-        Image imageSetting = settingIcon.getImage().getScaledInstance(settingButton.getWidth(),settingButton.getHeight(), Image.SCALE_SMOOTH);
+        Image imageSetting = settingIcon.getImage().getScaledInstance(settingButton.getWidth(), settingButton.getHeight(), Image.SCALE_SMOOTH);
         settingIcon = new ImageIcon(imageSetting);
         settingButton.setIcon(settingIcon);
-
 
         // Bottom ribbon
         bottomRibbon = new JPanel();
         bottomRibbon.setLayout(new GridLayout(1, 4, 10, 0));
         bottomRibbon.setBounds(0, 700, 600, 80);
-        bottomRibbon.setBackground(new Color(102,66,40));
+        bottomRibbon.setBackground(new Color(102, 66, 40));
         bottomRibbon.add(homeButton);
         bottomRibbon.add(profileButton);
         bottomRibbon.add(notifyButton);
@@ -184,53 +180,48 @@ public class ArticleZone implements ActionListener
         frame.add(searchButton);
         frame.add(articlePanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setBackground(new Color(255,251,230));
-        frame.setSize(600,800);
+        frame.getContentPane().setBackground(new Color(255, 251, 230));
+        frame.setSize(600, 800);
         frame.setResizable(false);
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
-}
-
-
+    }
 
     // List of events activated when the button is clicked
     @Override
-    public void actionPerformed(ActionEvent e) 
-    {
+    public void actionPerformed(ActionEvent e) {
         // Redirect to homepage
-        if(e.getSource() == homeButton)
-        {
+        if (e.getSource() == homeButton) {
             new HomePage(thisUser);
             frame.dispose();
         }
 
         // Redirect to profile page
-        if(e.getSource() == profileButton)
-        {
+        if (e.getSource() == profileButton) {
             new Profile(thisUser);
             frame.dispose();
         }
 
-        if(e.getSource() == searchButton) {
+        // Search button for the articles
+        if (e.getSource() == searchButton) {
             try {
                 String keyword = searchBar.getText().toLowerCase();
-                for (int i = 0; i < articleList.size(); i++){
-                    if (articleList.get(i).getTitle().toLowerCase().contains(keyword)){
+                for (int i = 0; i < articleList.size(); i++) {
+                    if (articleList.get(i).getTitle().toLowerCase().contains(keyword)) {
                         articleButton[i].setEnabled(true);
-                    }else {
+                    } else {
                         articleButton[i].setEnabled(false);
                     }
                 }
             } catch (NumberFormatException e1) {
-                JOptionPane.showMessageDialog(frame,"Invalid Input", "Error", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Invalid Input", "Error", JOptionPane.WARNING_MESSAGE);
             }
         }
 
-        for(int i = 0 ; i < 4 ; i++)
-        {   
-            if(e.getSource()==articleButton[i])
-            {    
+        // Open article URL when button is clicked on
+        for (int i = 0; i < 4; i++) {
+            if (e.getSource() == articleButton[i]) {
                 try {
                     Desktop.getDesktop().browse(new URI(articleList.get(i).getUrl()));
                 } catch (IOException | URISyntaxException e1) {

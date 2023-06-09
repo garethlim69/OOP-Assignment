@@ -13,8 +13,7 @@ import javax.swing.*;
 import javax.swing.JOptionPane;
 import Objects.Video;
 
-public class VideoZone implements ActionListener
-{
+public class VideoZone implements ActionListener {
     // Declare all components needed to design frame
     JFrame frame = new JFrame();
     JButton homeButton;
@@ -28,7 +27,7 @@ public class VideoZone implements ActionListener
     ImageIcon settingIcon;
     JPanel bottomRibbon;
     JPanel videoPanel = new JPanel();
-    JButton[] videoButton = new JButton[30];  // The max amount of Quiz Section is 30
+    JButton[] videoButton = new JButton[30]; // The max amount of Quiz Section is 30
     ImageIcon videoIcon;
     ImageIcon searchIcon;
     JLabel searchIconLabel = new JLabel();
@@ -43,24 +42,22 @@ public class VideoZone implements ActionListener
     ArrayList<Video> videoList = new ArrayList<Video>();
     String fileName = "Text Files/videos.txt";
 
-    // Constructor 
+    // Constructor
     // The username of current user is passed into this constructor
-    public VideoZone(String currentUser)
-    {
+    public VideoZone(String currentUser) {
         thisUser = currentUser;
 
         // Top ribbon
         bgImage = new ImageIcon("Image/videoTR.png");
         bgLabel.setBounds(0, 0, 600, 140);
-        Image image = bgImage.getImage().getScaledInstance(bgLabel.getWidth(),bgLabel.getHeight(), Image.SCALE_SMOOTH);
+        Image image = bgImage.getImage().getScaledInstance(bgLabel.getWidth(), bgLabel.getHeight(), Image.SCALE_SMOOTH);
         bgImage = new ImageIcon(image);
         bgLabel.setIcon(bgImage);
 
-        
         // Searching bar
         searchBar = new JTextField("What video you are looking for?");
         searchBar.setBounds(100, 170, 330, 60);
-        searchBar.setFont(new Font("Canva Sans",Font.PLAIN,20));
+        searchBar.setFont(new Font("Canva Sans", Font.PLAIN, 20));
 
         // Search icon beside the serach bar
         searchButton = new JButton();
@@ -70,7 +67,8 @@ public class VideoZone implements ActionListener
         searchButton.setContentAreaFilled(false);
         searchButton.setBorderPainted(false);
         searchIcon = new ImageIcon("Image/searchIcon.png");
-        Image imageSearch = searchIcon.getImage().getScaledInstance(searchButton.getWidth(),searchButton.getHeight(), Image.SCALE_SMOOTH);
+        Image imageSearch = searchIcon.getImage().getScaledInstance(searchButton.getWidth(), searchButton.getHeight(),
+                Image.SCALE_SMOOTH);
         searchIcon = new ImageIcon(imageSearch);
         searchButton.setIcon(searchIcon);
         searchButton.addActionListener(this);
@@ -78,9 +76,9 @@ public class VideoZone implements ActionListener
         ObjectInputStream is;
         try {
             is = new ObjectInputStream(new FileInputStream(fileName));
-            
+
             try {
-                videoList = (ArrayList)is.readObject();
+                videoList = (ArrayList) is.readObject();
             } catch (ClassNotFoundException e1) {
                 System.out.println("Class Not Found");
                 e1.printStackTrace();
@@ -94,29 +92,28 @@ public class VideoZone implements ActionListener
             e1.printStackTrace();
         }
 
-        for (int i = 0; i < videoList.size(); i++)
-        {
+        for (int i = 0; i < videoList.size(); i++) {
             videoButton[i] = new JButton();
             videoButton[i].setText(videoList.get(i).getTitle());
             videoButton[i].setBounds(0, 0, 50, 50);
-            videoButton[i].setFont(new Font("Canva Sans", Font.BOLD,30));
-            videoButton[i].setBackground(new Color(40,101,132));
+            videoButton[i].setFont(new Font("Canva Sans", Font.BOLD, 30));
+            videoButton[i].setBackground(new Color(40, 101, 132));
             videoButton[i].setFocusable(false);
             videoButton[i].setForeground(Color.WHITE);
             videoIcon = new ImageIcon("Image/videoIcon.png");
-            Image imageVideo = videoIcon.getImage().getScaledInstance(videoButton[i].getWidth(),videoButton[i].getHeight(), Image.SCALE_SMOOTH);
+            Image imageVideo = videoIcon.getImage().getScaledInstance(videoButton[i].getWidth(), videoButton[i].getHeight(), Image.SCALE_SMOOTH);
             videoIcon = new ImageIcon(imageVideo);
             videoButton[i].setIcon(videoIcon);
             videoButton[i].addActionListener(this);
             videoPanel.add(videoButton[i]);
         }
 
-        // Panel to hold all video buttons 
+        // Panel to hold all video buttons
         videoPanel.setBounds(90, 280, 400, 450);
-        videoPanel.setBackground(new Color(255,251,230));
+        videoPanel.setBackground(new Color(255, 251, 230));
         videoPanel.setOpaque(true);
-        videoPanel.setLayout(new GridLayout(5,1,30,30));
-    
+        videoPanel.setLayout(new GridLayout(5, 1, 30, 30));
+
         // All buttons on bottom ribbon
         homeButton = new JButton();
         homeButton.setFocusable(false);
@@ -125,7 +122,7 @@ public class VideoZone implements ActionListener
         homeButton.setContentAreaFilled(false);
         homeButton.setBorderPainted(false);
         homeIcon = new ImageIcon("Image/homeIcon.png");
-        Image imageHome = homeIcon.getImage().getScaledInstance(homeButton.getWidth(),homeButton.getHeight(), Image.SCALE_SMOOTH);
+        Image imageHome = homeIcon.getImage().getScaledInstance(homeButton.getWidth(), homeButton.getHeight(), Image.SCALE_SMOOTH);
         homeIcon = new ImageIcon(imageHome);
         homeButton.setIcon(homeIcon);
         homeButton.addActionListener(this);
@@ -137,7 +134,7 @@ public class VideoZone implements ActionListener
         profileButton.setContentAreaFilled(false);
         profileButton.setBorderPainted(false);
         profileIcon = new ImageIcon("Image/profileIcon.png");
-        Image imageProfile = profileIcon.getImage().getScaledInstance(profileButton.getWidth(),profileButton.getHeight(), Image.SCALE_SMOOTH);
+        Image imageProfile = profileIcon.getImage().getScaledInstance(profileButton.getWidth(), profileButton.getHeight(), Image.SCALE_SMOOTH);
         profileIcon = new ImageIcon(imageProfile);
         profileButton.setIcon(profileIcon);
         profileButton.addActionListener(this);
@@ -149,7 +146,7 @@ public class VideoZone implements ActionListener
         notifyButton.setContentAreaFilled(false);
         notifyButton.setBorderPainted(false);
         notifyIcon = new ImageIcon("Image/notifyIcon.png");
-        Image imageNotify = notifyIcon.getImage().getScaledInstance(notifyButton.getWidth(),notifyButton.getHeight(), Image.SCALE_SMOOTH);
+        Image imageNotify = notifyIcon.getImage().getScaledInstance(notifyButton.getWidth(), notifyButton.getHeight(), Image.SCALE_SMOOTH);
         notifyIcon = new ImageIcon(imageNotify);
         notifyButton.setIcon(notifyIcon);
 
@@ -160,7 +157,7 @@ public class VideoZone implements ActionListener
         settingButton.setContentAreaFilled(false);
         settingButton.setBorderPainted(false);
         settingIcon = new ImageIcon("Image/settingIcon.png");
-        Image imageSetting = settingIcon.getImage().getScaledInstance(settingButton.getWidth(),settingButton.getHeight(), Image.SCALE_SMOOTH);
+        Image imageSetting = settingIcon.getImage().getScaledInstance(settingButton.getWidth(), settingButton.getHeight(), Image.SCALE_SMOOTH);
         settingIcon = new ImageIcon(imageSetting);
         settingButton.setIcon(settingIcon);
 
@@ -168,12 +165,11 @@ public class VideoZone implements ActionListener
         bottomRibbon = new JPanel();
         bottomRibbon.setLayout(new GridLayout(1, 4, 10, 0));
         bottomRibbon.setBounds(0, 700, 600, 80);
-        bottomRibbon.setBackground(new Color(102,66,40));
+        bottomRibbon.setBackground(new Color(102, 66, 40));
         bottomRibbon.add(homeButton);
         bottomRibbon.add(profileButton);
         bottomRibbon.add(notifyButton);
         bottomRibbon.add(settingButton);
-
 
         // Set up of frame
         frame.add(bottomRibbon);
@@ -182,49 +178,45 @@ public class VideoZone implements ActionListener
         frame.add(searchButton);
         frame.add(videoPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setBackground(new Color(255,251,230));
-        frame.setSize(600,800);
+        frame.getContentPane().setBackground(new Color(255, 251, 230));
+        frame.setSize(600, 800);
         frame.setResizable(false);
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
 
-
-}
+    }
 
     @Override
-    public void actionPerformed(ActionEvent e) 
-    {
-        if(e.getSource() == homeButton)
-        {
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == homeButton) {
             new HomePage(thisUser);
             frame.dispose();
         }
-        if(e.getSource() == profileButton)
-        {
+        if (e.getSource() == profileButton) {
             new Profile(thisUser);
             frame.dispose();
         }
-        
-        if(e.getSource() == searchButton) {
+
+        // Search Component
+        if (e.getSource() == searchButton) {
             try {
                 String keyword = searchBar.getText().toLowerCase();
-                for (int i = 0; i < videoList.size(); i++){
-                    if (videoList.get(i).getTitle().toLowerCase().contains(keyword)){
+                for (int i = 0; i < videoList.size(); i++) {
+                    if (videoList.get(i).getTitle().toLowerCase().contains(keyword)) {
                         videoButton[i].setEnabled(true);
-                    }else {
+                    } else {
                         videoButton[i].setEnabled(false);
                     }
                 }
             } catch (NumberFormatException e1) {
-                JOptionPane.showMessageDialog(frame,"Invalid Input", "Error", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Invalid Input", "Error", JOptionPane.WARNING_MESSAGE);
             }
         }
-        
-        for(int i = 0; i < videoList.size(); i++)
-        {   
-            if(e.getSource()==videoButton[i])
-            {    
+
+        // Open URL of Video Clicked On
+        for (int i = 0; i < videoList.size(); i++) {
+            if (e.getSource() == videoButton[i]) {
                 try {
                     Desktop.getDesktop().browse(new URI(videoList.get(i).getUrl()));
                 } catch (IOException | URISyntaxException e1) {
@@ -235,5 +227,3 @@ public class VideoZone implements ActionListener
         }
     }
 }
-
-
